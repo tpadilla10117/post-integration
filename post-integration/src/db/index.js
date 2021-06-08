@@ -10,7 +10,7 @@
 
     //THIS FUNCTION CREATES POSTS:
         async function createPost({
-            authorId, title, content, tags = []
+            authorId, title, content/* , tags = [] */
         }) {
             try {
                 const { rows: [ post ] } = await client.query(`
@@ -19,7 +19,7 @@
                     RETURNING *;
                 `, [authorId, title, content]);
 
-                const tagList = await createTags(tags);
+                /* const tagList = await createTags(tags); */
 
                 /* return await addTagsToPost(post.id, tagList); */
 

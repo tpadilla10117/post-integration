@@ -1,6 +1,6 @@
 // The seed.js file is where we seed the database with meaningful info
 
-const { client, getAllUsers, createUser, updateUser } = require('./index');
+const { client, getAllUsers, createUser, updateUser, getUserById, createPost, updatePost, getAllPosts, getPostsByUser } = require('./index');
 
 /* Testing the db connection */
 
@@ -8,8 +8,8 @@ const { client, getAllUsers, createUser, updateUser } = require('./index');
         try {
             console.log("Starting to test database...");
 
-            const { rows } = await client.query(`SELECT * FROM users;`);
-
+           /*  const { rows } = await client.query(`SELECT * FROM users;`); */
+            console.log("Calling getAllUsers");
             const users = await getAllUsers();
             console.log("The result of invoking getAllUsers:", users);
 
@@ -19,6 +19,21 @@ const { client, getAllUsers, createUser, updateUser } = require('./index');
                 location: "Lesterville, KY"
             });
             console.log("Result of updateUserResult:", updateUserResult);
+
+            console.log("Calling getAllPosts");
+            const posts = await getAllPosts();
+            console.log("Result of getAllPosts:", posts);
+
+            console.log("Calling updatePost on posts[0]");
+            const updatePostResult = await updatePost(posts[0].id, {
+              title: "New Title",
+              content: "Updated Content"
+            });
+            console.log("Result of updatePost:", updatePostResult);
+
+            console.log("Calling getUserById with 1");
+            const trin = await getUserById(1);
+            console.log("Result of getUserById:", trin);
             
 
             console.log("Finished database tests!");
@@ -35,12 +50,12 @@ const { client, getAllUsers, createUser, updateUser } = require('./index');
     async function createInitialUsers() {
         try {
             console.log("Starting to create users...");
+            
+            await createUser( { 
+                username: 'trin', password: 't7711', name: 'trin P', location: 'cordelia'});
+            await createUser( { 
+                username: "sandra", password: 'glamgal', name: 'Sandy', location: 'Scranton'})
 
-            const trin = await createUser( { username: 'trin', password: 't7711', name: 'trin P', location: 'cordelia'});
-            const sandra = await createUser( { username: "sandra", password: 'glamgal', name: 'Sandy', location: 'Scranton'})
-
-            console.log("Here is trin:", trin);
-            console.log("Here is sandra:", sandra);
             console.log("Finished creating users!");
             
         } catch(error) {
@@ -49,22 +64,28 @@ const { client, getAllUsers, createUser, updateUser } = require('./index');
         }
     }
 
-//THIS FUNCTION CREATES THE 'POSTS' TABLE:
-    async function createPosts() {
+//THIS FUNCTION SEEDS DB WITH INITIAL POSTS:
+    async function createInitialPosts() {
         try {
-            console.log('Starting to create Posts...');
+            const [trin, sandra] = await getAllUsers();
+            console.log("Starting to create posts...")
 
-            await client.query(`
-                CREATE TABLE posts (
-                    id SERIAL PRIMARY KEY
-                    "authorId" INTEGER REFERENCES users(id) NOT NULL
-                    title VARCHAR(255) NOT NULL
-                    context TEXT NOT NULL
-                    active BOOLEAN DEFAULT true
-                );
-            `)
+            await createPost({
+                authorId: trin.id,
+                title: "My First Post",
+                content: "This is my first post.  Fun stuff!"
+            });
 
-        } catch(error) {
+            await createPost({
+                authorId: sandra.id,
+                title: "How does this work?",
+                content: "I hope I'm actually writing something here..."
+            })
+
+            console.log("Finished creating posts!")
+
+        } catch (error) {
+            console.log("Error creating posts!");
             throw error;
         }
     }
@@ -100,6 +121,13 @@ const { client, getAllUsers, createUser, updateUser } = require('./index');
                     location VARCHAR(255) NOT NULL,
                     active BOOLEAN DEFAULT true
                 );
+                CREATE TABLE posts (
+                    id SERIAL PRIMARY KEY,
+                    "authorId" INTEGER REFERENCES users(id),
+                    title varchar(255) NOT NULL,
+                    content TEXT NOT NULL,
+                    active BOOLEAN DEFAULT true
+                );
             `);
             console.log("Finished building tables!");
         } catch (error) {
@@ -116,11 +144,13 @@ const { client, getAllUsers, createUser, updateUser } = require('./index');
             await dropTables();
             await createTables();
             await createInitialUsers();
+            await createInitialPosts();
+
         } catch (error) {
-            console.error("There is an error:", error);
+            console.error("Error during rebuildDB");
+            throw error;
         } 
     }
 
 rebuildDB()
 .then(testDB).catch(console.error).finally( () => client.end() );
-/* testDB(); */
