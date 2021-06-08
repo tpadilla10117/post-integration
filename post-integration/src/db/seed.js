@@ -1,6 +1,6 @@
 // The seed.js file is where we seed the database with meaningful info
 
-const { client, getAllUsers, createUser } = require('./index');
+const { client, getAllUsers, createUser, updateUser } = require('./index');
 
 /* Testing the db connection */
 
@@ -12,6 +12,15 @@ const { client, getAllUsers, createUser } = require('./index');
 
             const users = await getAllUsers();
             console.log("The result of invoking getAllUsers:", users);
+
+            console.log("Calling updateUser on users[0]")
+             const updateUserResult = await updateUser(users[0].id, {
+                name: "Newname Sogood",
+                location: "Lesterville, KY"
+            });
+            console.log("Result of updateUserResult:", updateUserResult);
+            
+
             console.log("Finished database tests!");
         } catch (error) {
             console.error("Error testing database!");
@@ -40,12 +49,33 @@ const { client, getAllUsers, createUser } = require('./index');
         }
     }
 
+//THIS FUNCTION CREATES THE 'POSTS' TABLE:
+    async function createPosts() {
+        try {
+            console.log('Starting to create Posts...');
+
+            await client.query(`
+                CREATE TABLE posts (
+                    id SERIAL PRIMARY KEY
+                    "authorId" INTEGER REFERENCES users(id) NOT NULL
+                    title VARCHAR(255) NOT NULL
+                    context TEXT NOT NULL
+                    active BOOLEAN DEFAULT true
+                );
+            `)
+
+        } catch(error) {
+            throw error;
+        }
+    }
+
 // THIS FUNCTIONS CALLS A QUERY TO DROP TABLES FROM THE DB
     async function dropTables() {
         try {
             console.log("Starting to drop tables...");
 
             await client.query(`
+                DROP TABLE IF EXISTS posts;
                 DROP TABLE IF EXISTS users;
             `);
             console.log("Finished dropping tables!");
