@@ -31,6 +31,12 @@ const { client, getAllUsers, createUser, updateUser, getUserById, createPost, up
             });
             console.log("Result of updatePost:", updatePostResult);
 
+            console.log("Calling updatePost on posts[1], only updating tags");
+            const updatePostTagsResult = await updatePost(posts[1].id, {
+              tags: ["#youcandoanything", "#redfish", "#bluefish"]
+            });
+            console.log("Result:", updatePostTagsResult);
+
             console.log("Calling getPostById");
             const post = await getPostById(1);
             console.log("Result of get getPostById:", post);

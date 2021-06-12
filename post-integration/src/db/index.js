@@ -10,7 +10,7 @@
 
     //THIS FUNCTION CREATES POSTS:
         async function createPost({
-            authorId, title, content/* , tags = [] */
+            authorId, title, content, tags = []
         }) {
             try {
                 const { rows: [ post ] } = await client.query(`
@@ -19,11 +19,11 @@
                     RETURNING *;
                 `, [authorId, title, content]);
 
-                /* const tagList = await createTags(tags); */
+                const tagList = await createTags(tags);
 
-                /* return await addTagsToPost(post.id, tagList); */
+                return await addTagsToPost(post.id, tagList);
 
-                return post;
+                /* return post; */
 
             } catch (error) {
                 throw error;
@@ -31,7 +31,11 @@
         }
 
     //THIS FUNCTION UPDATES POSTS
-        async function updatePost(id, fields = {} ) {
+        async function updatePost(postId, fields = {} ) {
+
+            const { tags } = fields;
+            delete fields.tags;
+
             //build set string
             //use map to turn each key into a string that looks like "keyName"=$3
             const setString = Object.keys(fields).map(
@@ -42,14 +46,40 @@
             }
             
             try {
-                const { rows: [post] } = await client.query(`
+                /* const { rows: [post] } = */ 
+                if (setString.length > 0) {
+                    
+                    await client.query(`
                     UPDATE posts
                     SET ${ setString }
-                    WHERE id=${ id }
+                    WHERE id=${ postId }
                     RETURNING *;
                 `, Object.values(fields) );
+                }
 
-                return post;
+                //return early if there are no tags to update
+                if (tags === undefined) {
+                    return await getPostById(postId);
+                }
+
+                //make new tags if desired
+                const tagList = await createTags(tags);
+                const tagListIdString = tagList.map(tag => `${ tag.id }`).join(', ');
+
+                //delete any post_tags from db that are not in that tagList
+                await client.query(`
+                    DELETE FROM post_tags
+                    WHERE "tagId"
+                    NOT IN (${ tagListIdString})
+                    AND "postId"=$1;
+                `, [postId])
+
+                //and create post_tags as desired
+                await addTagsToPost(postId, tagList);
+
+                return await getPostById(postId);
+
+                /* return post; */
                 
             } catch (error) {
                 throw error;
