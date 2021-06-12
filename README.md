@@ -9,7 +9,7 @@ Users Will (Can):
 
 ### Tech Stack:
 - Database: PostgreSQL
-- API: Express.js
+- API: Express.js (our web server)
 - User Interface / FrontEnd: React.js, CSS, SASS
 - Authentication: jsonwebtoken, jwt-express
 
