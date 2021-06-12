@@ -1,4 +1,19 @@
-# Getting Started
+# Project Description:
+
+A full stack web-application / Tumblr clone that implements a custom back-end (postgreSQL and a custom API).
+
+Users Will (Can):
+- Create & Update posts
+- Create tags and attach them to posts
+- View posts created by fellow users
+
+### Tech Stack:
+- Database: PostgreSQL
+- API: Express.js
+- User Interface / FrontEnd: React.js, CSS, SASS
+- Authentication: jsonwebtoken, jwt-express
+
+## Getting Started:
 
 In the post-integation/post-integration directory, you can run:
 
