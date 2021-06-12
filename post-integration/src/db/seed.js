@@ -1,6 +1,6 @@
 // The seed.js file is where we seed the database with meaningful info
 
-const { client, getAllUsers, createUser, updateUser, getUserById, createPost, updatePost, getAllPosts, getPostsByUser, createTags, createPostTag, addTagsToPost, getPostById, getAllTags } = require('./index');
+const { client, getAllUsers, createUser, updateUser, getUserById, createPost, updatePost, getAllPosts, getPostsByUser, createTags, createPostTag, addTagsToPost, getPostById, getAllTags, getPostsByTagName } = require('./index');
 
 /* Testing the db connection */
 
@@ -43,10 +43,13 @@ const { client, getAllUsers, createUser, updateUser, getUserById, createPost, up
             const tags = await getAllTags();
             console.log("Result of getAllTags:", tags);
 
-
-            /* console.log("Calling getPostsByTagName with #happy");
+            console.log("Calling getPostsByTagName with #happy");
             const postsWithHappy = await getPostsByTagName("#happy");
-            console.log("Result:", postsWithHappy); */
+            console.log("Result:", postsWithHappy);
+
+            /* console.log("Calling getPostsByUser!");
+            const userPosts = await getPostsByUser(1);
+            console.log("The result of getPostsByUser:", userPosts); */
             
 
             console.log("Finished database tests!");
@@ -93,7 +96,8 @@ const { client, getAllUsers, createUser, updateUser, getUserById, createPost, up
             await createPost({
                 authorId: sandra.id,
                 title: "How does this work?",
-                content: "I hope I'm actually writing something here..."
+                content: "I hope I'm actually writing something here...",
+                tags: ["#ihatelife"]
             })
 
             console.log("Finished creating posts!")
@@ -193,7 +197,7 @@ const { client, getAllUsers, createUser, updateUser, getUserById, createPost, up
             await createTables();
             await createInitialUsers();
             await createInitialPosts();
-            await createInitialTags();
+            /* await createInitialTags(); */
 
         } catch (error) {
             console.error("Error during rebuildDB");

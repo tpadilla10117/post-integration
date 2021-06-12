@@ -59,12 +59,14 @@
     //THIS FUNCTION GETS All POSTS:
         async function getAllPosts() {
             try {
-                const { rows } = await client.query(`
-                    SELECT *
+                const { rows: postIds } = await client.query(`
+                    SELECT id
                     FROM posts;
-                `)
+                `);
 
-                return rows;
+                const posts = await Promise.all(postIds.map(post => getPostById(post.id)));
+
+                return posts;
 
             } catch (error) {
                 throw error;
@@ -83,6 +85,25 @@
             } catch (error) {
                 throw error;
             }
+        }
+
+    //This FUNCTION GETS ALL POSTS WITH A PARTICULAR TAG:
+        async function getPostsByTagName(tagName) {
+            try {
+                const { rows: postIds } = await client.query(`
+                    SELECT posts.id
+                    FROM posts
+                    JOIN post_tags ON posts.id=post_tags."postId"
+                    JOIN tags ON tags.id=post_tags."tagId"
+                    WHERE tags.name=$1;
+                `, [tagName]);
+
+                return await Promise.all(postIds.map( post => getPostById(post.id)));
+
+
+            } catch (error) {
+                throw error;
+            } 
         }
 
 
@@ -315,5 +336,6 @@
         createPostTag,
         addTagsToPost,
         getPostById,
-        getAllTags
+        getAllTags,
+        getPostsByTagName
     }
