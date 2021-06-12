@@ -298,5 +298,9 @@
         createPost,
         updatePost,
         getAllPosts,
-        getPostsByUser
+        getPostsByUser,
+        createTags,
+        createPostTag,
+        addTagsToPost,
+        getPostById
     }
