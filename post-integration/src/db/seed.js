@@ -31,19 +31,21 @@ const { client, getAllUsers, createUser, updateUser, getUserById, createPost, up
             });
             console.log("Result of updatePost:", updatePostResult);
 
+
+            //THIS ISNT UPDATING - RETURNING UNDEFINED
             console.log("Calling updatePost on posts[1], only updating tags");
-            const updatePostTagsResult = await updatePost(posts[1].id, {
+            const updatePostTagsResult = await updatePost(posts[0].id, {
               tags: ["#youcandoanything", "#redfish", "#bluefish"]
             });
-            console.log("Result:", updatePostTagsResult);
-
-            console.log("Calling getPostById");
-            const post = await getPostById(1);
-            console.log("Result of get getPostById:", post);
+            console.log("Result of updating posttags:", updatePostTagsResult);
 
             console.log("Calling getUserById with 1");
             const trin = await getUserById(1);
             console.log("Result of getUserById:", trin);
+
+            console.log("Calling getPostById");
+            const post = await getPostById(1);
+            console.log("Result of get getPostById:", post);
 
             console.log("Calling getAllTags");
             const tags = await getAllTags();
@@ -52,6 +54,7 @@ const { client, getAllUsers, createUser, updateUser, getUserById, createPost, up
             console.log("Calling getPostsByTagName with #happy");
             const postsWithHappy = await getPostsByTagName("#happy");
             console.log("Result:", postsWithHappy);
+
 
             /* console.log("Calling getPostsByUser!");
             const userPosts = await getPostsByUser(1);

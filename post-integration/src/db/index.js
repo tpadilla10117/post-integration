@@ -31,7 +31,7 @@
         }
 
     //THIS FUNCTION UPDATES POSTS
-        async function updatePost(postId, fields = {} ) {
+        async function updatePost(postId, fields = {}) {
 
             const { tags } = fields;
             delete fields.tags;
@@ -40,10 +40,6 @@
             //use map to turn each key into a string that looks like "keyName"=$3
             const setString = Object.keys(fields).map(
                 (key, index) => `"${ key }"=$${ index + 1}`).join(', ');
-
-            if (setString.length === 0) {
-                return;
-            }
             
             try {
                 /* const { rows: [post] } = */ 
@@ -107,11 +103,15 @@
     //THIS FUNCTION GETS ALL POSTS BY THE ID OF THE USER:
         async function getPostsByUser(userId) {
             try {
-                const { rows } = client.query(`
-                    SELECT * FROM posts
+                const { /* rows:  */postIds } = client.query(`
+                    SELECT id FROM posts
                     WHERE "authorId"=${ userId };
                 `);
-                return rows;
+
+                const posts = await Promise.all(postIds.map(post => getPostById(post.id)));
+
+                return posts;
+                /* return rows; */
             } catch (error) {
                 throw error;
             }
