@@ -192,6 +192,18 @@
             }
         }
 
+    // This function lets us get all tags
+        async function getAllTags() {
+            try {
+                const { rows } = await client.query(`
+                    SELECT * FROM tags;
+                `);
+
+                return { rows };
+            } catch (error) {
+                throw error;
+            }
+        }
 
 
 
@@ -234,7 +246,7 @@
         async function getUserById(userId) {
             try {
                 const { rows: [ user ] } = await client.query(`
-                    SELECT id, username, name , location, active
+                    SELECT id, username, name, location, active
                     FROM users
                     WHERE id=${ userId }
                 `);
@@ -302,5 +314,6 @@
         createTags,
         createPostTag,
         addTagsToPost,
-        getPostById
+        getPostById,
+        getAllTags
     }

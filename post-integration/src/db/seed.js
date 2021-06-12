@@ -1,6 +1,6 @@
 // The seed.js file is where we seed the database with meaningful info
 
-const { client, getAllUsers, createUser, updateUser, getUserById, createPost, updatePost, getAllPosts, getPostsByUser } = require('./index');
+const { client, getAllUsers, createUser, updateUser, getUserById, createPost, updatePost, getAllPosts, getPostsByUser, createTags, createPostTag, addTagsToPost, getPostById, getAllTags } = require('./index');
 
 /* Testing the db connection */
 
@@ -31,9 +31,22 @@ const { client, getAllUsers, createUser, updateUser, getUserById, createPost, up
             });
             console.log("Result of updatePost:", updatePostResult);
 
+            console.log("Calling getPostById");
+            const post = await getPostById(1);
+            console.log("Result of get getPostById:", post);
+
             console.log("Calling getUserById with 1");
             const trin = await getUserById(1);
             console.log("Result of getUserById:", trin);
+
+            console.log("Calling getAllTags");
+            const tags = await getAllTags();
+            console.log("Result of getAllTags:", tags);
+
+
+            /* console.log("Calling getPostsByTagName with #happy");
+            const postsWithHappy = await getPostsByTagName("#happy");
+            console.log("Result:", postsWithHappy); */
             
 
             console.log("Finished database tests!");
@@ -73,7 +86,8 @@ const { client, getAllUsers, createUser, updateUser, getUserById, createPost, up
             await createPost({
                 authorId: trin.id,
                 title: "My First Post",
-                content: "This is my first post.  Fun stuff!"
+                content: "This is my first post.  Fun stuff!",
+                tags: ["#happy"]
             });
 
             await createPost({
@@ -86,6 +100,29 @@ const { client, getAllUsers, createUser, updateUser, getUserById, createPost, up
 
         } catch (error) {
             console.log("Error creating posts!");
+            throw error;
+        }
+    }
+
+// THIS FUNCTION CREATES INITIAL TAGS ON A POST:
+    async function createInitialTags() {
+        try {
+            console.log("Starting to create tags...");
+            const [happy, sad, inspiration, spiderman] = await createTags([
+                '#happyjoy',
+                '#ihatelife',
+                '#punchthefaceofgawd',
+                '#doeswhateveraspidercan'
+            ])
+
+            const [ postOne, postTwo ] = await getAllPosts();
+
+            await addTagsToPost(postOne.id, [inspiration, spiderman]);
+            await addTagsToPost(postTwo.id, [happy, sad]);
+
+            console.log("Finished creating tags!");
+        } catch (error) {
+            console.log("Error creating tags!");
             throw error;
         }
     }
@@ -156,6 +193,7 @@ const { client, getAllUsers, createUser, updateUser, getUserById, createPost, up
             await createTables();
             await createInitialUsers();
             await createInitialPosts();
+            await createInitialTags();
 
         } catch (error) {
             console.error("Error during rebuildDB");
