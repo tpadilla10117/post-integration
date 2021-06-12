@@ -95,15 +95,102 @@
                 return;
             }
             
+            // Need a string: $1), ($2), ($3
+            const insertStringValues = tagList.map(
+                (_, index) => `$${index + 1}`
+              ).join('), (');
            
+            // need something like $1, $2, $3
+            const selectStringValues = tagList.map(
+                (_, index) => `$${index + 1}`
+              ).join(', ');
 
+            try {
+                //insert tag values into db
+                await client.query(`
+                    INSERT INTO tags(name)
+                    VALUES (${insertStringValues})
+                    ON CONFLICT (name) DO NOTHING;
+                `, tagList);
 
+                //select all tags and return
+                const { rows } = await client.query(`
+                    SELECT * FROM tags
+                    WHERE name
+                    IN (${selectStringValues})
+                `, tagList);
 
+                return rows;
 
-
+            } catch (error) {
+                throw error;
+            }
 
         }
 
+    // This function lets us create tags on a Post:
+        async function createPostTag(postId, tagId) {
+            try {
+                await client.query(`
+                    INSERT INTO post_tags("postId","tagId")
+                    VALUES ($1, $2)
+                    ON CONFLICT ("postId", "tagId") DO NOTHING;
+                `, [postId, tagId]);
+            } catch (error) {
+                throw error;
+            }
+        }
+
+    // This is used to await promises from createPostTag, and add tags to a post:
+        async function addTagsToPost(postId, tagList) {
+            try {
+                const createPostTagPromises = tagList.map(tag => createPostTag(postId, tag.id) );
+
+                //outputs an array
+                await Promise.all(createPostTagPromises);
+
+                return await getPostById(postId);
+
+            } catch (error) {
+                throw error;
+            }
+        }
+
+    // This func lets us get posts by the postId:
+        async function getPostById(postId) {
+            try {
+                //First grab the post iteself -
+                const { rows: [ post ] } = await client.query(`
+                    SELECT * FROM posts
+                    WHERE id=$1;
+                `, [postId]);
+
+                //Then get the post's tags -
+                const { rows: tags } = await client.query(`
+                    SELECT tags.*
+                    FROM tags
+                    JOIN post_tags ON tags.id=post_tags."tagId"
+                    WHERE post_tags."postId"=$1;
+                `, [postId]);
+
+                //Lastly, add the tags and author to post & remove authorId -
+                const { rows: [author] } = await client.query(`
+                    SELECT id, username, name, location
+                    FROM users
+                    WHERE id=$1;
+                `, [post.authorId])
+
+                post.tags = tags;
+                post.author = author;
+
+                delete post.authorId;
+
+                return post;
+
+            } catch (error) {
+                throw error;
+            }
+        }
 
 
 
