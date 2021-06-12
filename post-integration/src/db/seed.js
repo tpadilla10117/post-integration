@@ -13,13 +13,13 @@ const { client, getAllUsers, createUser, updateUser, getUserById, createPost, up
             const users = await getAllUsers();
             console.log("The result of invoking getAllUsers:", users);
 
-            console.log("Calling updateUser on users[0]")
+           /*  console.log("Calling updateUser on users[0]")
              const updateUserResult = await updateUser(users[0].id, {
                 name: "Newname Sogood",
                 location: "Lesterville, KY"
             });
             console.log("Result of updateUserResult:", updateUserResult);
-
+ */
             console.log("Calling getAllPosts");
             const posts = await getAllPosts();
             console.log("Result of getAllPosts:", posts);
@@ -31,28 +31,32 @@ const { client, getAllUsers, createUser, updateUser, getUserById, createPost, up
             });
             console.log("Result of updatePost:", updatePostResult);
 
-
-            //THIS ISNT UPDATING - RETURNING UNDEFINED
-            console.log("Calling updatePost on posts[1], only updating tags");
+            console.log("Calling updatePost on posts[0], only updating tags");
             const updatePostTagsResult = await updatePost(posts[0].id, {
               tags: ["#youcandoanything", "#redfish", "#bluefish"]
             });
             console.log("Result of updating posttags:", updatePostTagsResult);
 
+            console.log("Calling getPostById");
+            const post = await getPostById(1);
+            console.log("Result of get getPostById:", post);
+
             console.log("Calling getUserById with 1");
             const trin = await getUserById(1);
             console.log("Result of getUserById:", trin);
 
-            console.log("Calling getPostById");
-            const post = await getPostById(1);
-            console.log("Result of get getPostById:", post);
+            /* USERs ID COMING BACK AS UNDEFINED */
+            console.log("Calling getPostsByUser:");
+            const postsByUser = await getPostsByUser(1);
+            console.log("Result of getPostsByUser:", postsByUser);
+
 
             console.log("Calling getAllTags");
             const tags = await getAllTags();
             console.log("Result of getAllTags:", tags);
 
-            console.log("Calling getPostsByTagName with #happy");
-            const postsWithHappy = await getPostsByTagName("#happy");
+            console.log("Calling getPostsByTagName with #redfish");
+            const postsWithHappy = await getPostsByTagName("#redfish");
             console.log("Result:", postsWithHappy);
 
 

@@ -101,21 +101,24 @@
 
 
     //THIS FUNCTION GETS ALL POSTS BY THE ID OF THE USER:
+
         async function getPostsByUser(userId) {
             try {
-                const { /* rows:  */postIds } = client.query(`
-                    SELECT id FROM posts
-                    WHERE "authorId"=${ userId };
-                `);
-
-                const posts = await Promise.all(postIds.map(post => getPostById(post.id)));
-
-                return posts;
-                /* return rows; */
+              const { rows: postIds } = await client.query(`
+                SELECT id 
+                FROM posts 
+                WHERE "authorId"=${ userId };
+              `);
+          
+              const posts = await Promise.all(postIds.map(
+                post => getPostById( post.id )
+              ));
+          
+              return posts;
             } catch (error) {
-                throw error;
+              throw error;
             }
-        }
+          }
 
     //This FUNCTION GETS ALL POSTS WITH A PARTICULAR TAG:
         async function getPostsByTagName(tagName) {
@@ -215,6 +218,7 @@
                     SELECT * FROM posts
                     WHERE id=$1;
                 `, [postId]);
+                
 
                 //Then get the post's tags -
                 const { rows: tags } = await client.query(`
@@ -255,10 +259,6 @@
                 throw error;
             }
         }
-
-
-
-
 
 /* ----------------------------------------------------------------------------- */
 //THESE ARE THE USER METHODS:
@@ -315,8 +315,6 @@
             }
 
         }
-
-
 
     //THIS FUNCTION ALLOWS US TO CHANGE A USER:
 
