@@ -293,6 +293,20 @@
             }
         }
 
+    //THIS FUNCTION LETS US GET USERS BY THEIR USERNAME:
+        async function getUserByUsername(username) {
+            try {
+                const { rows: [user] } = await client.query(`
+                    SELECT * FROM users
+                    WHERE username=$1;
+                `, [username]);
+
+                return user;
+            } catch (error) {
+                throw error;
+            }
+        }
+
     //THIS FUNCTION LETS US GET BOTH A USER AND THEIR POSTS:
         async function getUserById(userId) {
             try {
@@ -365,5 +379,6 @@
         addTagsToPost,
         getPostById,
         getAllTags,
-        getPostsByTagName
+        getPostsByTagName,
+        getUserByUsername
     }
