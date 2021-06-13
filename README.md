@@ -15,9 +15,18 @@ Users Will (Can):
 
 ## Getting Started:
 
+## Local Installations:
+
+### `npm i jsonwebtoken` -> for jsonwebtoken
+### `npm i morgan` -> for logging middleware
+### `npm i express` -> for web-server
+### `npm i dotenv` -> for .env
+
 In the post-integation/post-integration directory, you can run:
 
 ### `npm start`
+### `npm run seed:dev` - Starts up the psql database
+### `npm run start:dev` - Starts up the Express Web-Server (API)
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.

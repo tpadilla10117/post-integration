@@ -1,7 +1,11 @@
 //THIS IS WHERE I LAUNCH THE express.js web server:
-const PORT = 3000;
-const express = require('express');
-const server = express();
+    // Requiring the .env
+    require('dotenv').config();
+
+
+    const PORT = 3000;
+    const express = require('express');
+    const server = express();
 
 //THIS IS WHERE I CONNECT THE CLIENT (database):
     const { client } = require('./src/db');
