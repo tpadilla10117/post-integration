@@ -17,3 +17,11 @@
 
 - Authorization -> needs a token passed in
 - Content-Type -> bodyParser middleware reads off what we need from the user
+
+    ### Testing:
+    - Run `npm run start:dev` in one terminal, then in another try:
+        - curl http://localhost:3000
+        - curl http://localhost:3000/api
+        - curl http://localhost:3000/api -H 'Authorization: Bearer xyz'
+        - curl http://localhost:3000/api -H 'Authorization: The Bears xyz'
+        - curl http://localhost:3000/api/posts
