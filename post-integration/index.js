@@ -1,7 +1,8 @@
 //THIS IS WHERE I LAUNCH THE express.js web server:
     // Requiring the .env
     require('dotenv').config();
-
+    const bodyParser = require('body-parser');
+    const morgan = require('morgan');
 
     const PORT = 3000;
     const express = require('express');
@@ -11,17 +12,20 @@
     const { client } = require('./src/db');
     client.connect();
 
+    server.listen(PORT, () => {
+        console.log('The web-server us up on port', PORT)
+      });
+
 /* MAY NEED TO ADD THIS SCRIPT: */
 /* "start": "node index.js", */
 /* ----------------------------------------------------------------------- */
 /* MiddleWare: */
 
     //bodyParser.json() reads incoming JSON from reqs:
-    const bodyParser = require('body-parser');
+    
     server.use(bodyParser.json());
 
     //morgan('dev') logs out incoming reqs:
-    const morgan = require('morgan');
     server.use(morgan('dev'));
 
     //Server passes in:
@@ -35,10 +39,6 @@
     
         next();
     });
-
-server.listen(PORT, () => {
-  console.log('The web-server us up on port', PORT)
-});
 
 /* THIS IS WHERE I BRING IN THE apiRouter */
 const apiRouter = require('./src/api');
