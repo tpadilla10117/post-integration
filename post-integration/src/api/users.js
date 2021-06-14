@@ -23,7 +23,7 @@
 //login route:
     usersRouter.post('/login', async (req, res, next) => {
         const { username, password } = req.body;
-
+        /* console.log(req.body); */
         if (!username || !password) {
             next({
                 name: "MissingCredentialsError",

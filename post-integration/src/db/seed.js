@@ -84,6 +84,9 @@ const { client, getAllUsers, createUser, updateUser, getUserById, createPost, up
                 username: 'trin', password: 't7711', name: 'trin P', location: 'cordelia'});
             await createUser( { 
                 username: "sandra", password: 'glamgal', name: 'Sandy', location: 'Scranton'})
+            await createUser( {
+                username: "albert", password: "bertie99", name: "Albert", location: "Jalisco"
+            })
 
             console.log("Finished creating users!");
             
