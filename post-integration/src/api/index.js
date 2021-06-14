@@ -37,6 +37,13 @@
         }
     });
 
+    apiRouter.use( (req, res, next) => {
+        if (req.user) {
+            console.log("User is set:", req.user);
+        }
+        next();
+    });
+
 // Where the Routers get attached:
 
     const usersRouter = require('./users');
