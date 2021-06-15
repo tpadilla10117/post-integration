@@ -1,8 +1,8 @@
 /* THE PATH/ROUTER FOR THE API AT THE users endpoint */
     const express = require('express');
     const usersRouter = express.Router();
-
-    const { getAllUsers, getUserByUsername, createUser } = require('../db');
+    const { requireUser } = require('./utils');
+    const { getAllUsers, getUserByUsername, createUser, getUserById, updateUser } = require('../db');
     const jwt = require('jsonwebtoken');
     const { JWT_SECRET } = process.env;
 
@@ -96,6 +96,32 @@
 
         } catch ( {name, message}) {
             next( {name, message })
+        }
+    })
+
+//DELETE A USER ROUTE:
+    usersRouter.delete('/:userId', requireUser, async (req, res, next) => {
+        try {
+            const user = await getUserById(req.params.userId);
+
+            if (user && user.id === req.user.id) {
+                const updatedUser = await updateUser(user.id, { active: false });
+
+                res.send({ user: updatedUser });
+            } else {
+                next(user ? {
+                    name: "UnauthorizedUserError",
+                    message: "You cannot delete an account that is not yours"
+                } : {
+                    name: "UserNotFoundError",
+                    message: "That user does not exist"
+                });
+            }
+        
+        } catch ({ name, message }) {
+            next({
+                name:"Delete Success", message:"The User Was Deleted Successfully!"
+            })
         }
     })
 
