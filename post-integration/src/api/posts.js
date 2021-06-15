@@ -1,5 +1,6 @@
 /* THE PATH/ROUTER FOR THE API AT THE posts endpoint */
 const express = require('express');
+const { requireUser } = require('./utils');
 const postsRouter = express.Router();
 
 const { getAllPosts } = require('../db');
@@ -16,6 +17,10 @@ postsRouter.get('/', async (req, res) => {
     res.send({
         posts
     });
+})
+
+postsRouter.post("/", requireUser, async (req, res, next) => {
+    res.send({ message: 'Under Construction'});
 })
 
 module.exports = postsRouter;
