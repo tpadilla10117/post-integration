@@ -1,6 +1,6 @@
 // The seed.js file is where we seed the database with meaningful info
 
-const { client, getAllUsers, createUser, updateUser, getUserById, createPost, updatePost, getAllPosts, getPostsByUser, createTags, createPostTag, addTagsToPost, getPostById, getAllTags, getPostsByTagName } = require('./index');
+const { client, getAllUsers, createUser, updateUser, getUserById, createPost, updatePost, getAllPosts, getPostsByUser, createTags, addTagsToPost, getPostById, getAllTags, getPostsByTagName } = require('./index');
 
 /* Testing the db connection */
 
@@ -8,18 +8,17 @@ const { client, getAllUsers, createUser, updateUser, getUserById, createPost, up
         try {
             console.log("Starting to test database...");
 
-           /*  const { rows } = await client.query(`SELECT * FROM users;`); */
             console.log("Calling getAllUsers");
             const users = await getAllUsers();
             console.log("The result of invoking getAllUsers:", users);
 
-           /*  console.log("Calling updateUser on users[0]")
+            console.log("Calling updateUser on users[0]")
              const updateUserResult = await updateUser(users[0].id, {
                 name: "Newname Sogood",
                 location: "Lesterville, KY"
             });
             console.log("Result of updateUserResult:", updateUserResult);
- */
+
             console.log("Calling getAllPosts");
             const posts = await getAllPosts();
             console.log("Result of getAllPosts:", posts);
@@ -45,11 +44,9 @@ const { client, getAllUsers, createUser, updateUser, getUserById, createPost, up
             const trin = await getUserById(1);
             console.log("Result of getUserById:", trin);
 
-            /* USERs ID COMING BACK AS UNDEFINED */
             console.log("Calling getPostsByUser:");
             const postsByUser = await getPostsByUser(1);
             console.log("Result of getPostsByUser:", postsByUser);
-
 
             console.log("Calling getAllTags");
             const tags = await getAllTags();
@@ -58,12 +55,6 @@ const { client, getAllUsers, createUser, updateUser, getUserById, createPost, up
             console.log("Calling getPostsByTagName with #redfish");
             const postsWithHappy = await getPostsByTagName("#redfish");
             console.log("Result:", postsWithHappy);
-
-
-            /* console.log("Calling getPostsByUser!");
-            const userPosts = await getPostsByUser(1);
-            console.log("The result of getPostsByUser:", userPosts); */
-            
 
             console.log("Finished database tests!");
         } catch (error) {
