@@ -125,4 +125,33 @@
         }
     })
 
+//RE-ACTIVATE A USER ROUTE:
+    usersRouter.patch('/:userId', requireUser, async (req, res, next) => {
+        try {
+            const user = await getUserById(req.params.userId);
+
+            if(user && user.id === req.user.id) {
+                const activateUser = await updateUser(user.id, {active: true});
+
+                res.send({ user: activateUser, name: "Reactivation Success!",
+                message: "Your Account has been reactivated!"});
+                
+
+            } else {
+                next(user ? {
+                    name: "UnauthorizedUserError",
+                    message: "You cannot recover an account that is not yours"
+                } : {
+                    name: "UserNotFound",
+                    message: "That User does not exist"
+                })
+            }
+
+        } catch ({name, message }) {
+            next({
+                name, message
+            })
+        }
+    })
+
     module.exports = usersRouter;
