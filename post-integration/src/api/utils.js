@@ -17,6 +17,7 @@
                 message: "The user is not Active"
             })
         }
+        next();
     }
 
 module.exports = {

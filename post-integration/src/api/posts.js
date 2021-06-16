@@ -1,6 +1,6 @@
 /* THE PATH/ROUTER FOR THE API AT THE posts endpoint */
 const express = require('express');
-const { requireUser } = require('./utils');
+const { requireUser, requireActiveUser } = require('./utils');
 const postsRouter = express.Router();
 
 const { getAllPosts, createPost, updatePost, getPostById } = require('../db');
@@ -33,7 +33,7 @@ postsRouter.use((req, res, next) => {
     });
 
 // ROUTE TO CREATE POSTS:
-    postsRouter.post("/", requireUser, async (req, res, next) => {
+    postsRouter.post("/", requireUser,requireActiveUser, async (req, res, next) => {
         const { title, content, tags = "" } = req.body;
 
         //Spaces removed, then string into an Array
