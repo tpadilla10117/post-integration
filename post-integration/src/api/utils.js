@@ -9,6 +9,17 @@
         next();
     }
 
+// Middleware for Errors with no active user:
+    function requireActiveUser(req, res, next) {
+        if(!req.user.active || !req.user) {
+            next({
+                name: "UserNotActiveError",
+                message: "The user is not Active"
+            })
+        }
+    }
+
 module.exports = {
-    requireUser
+    requireUser,
+    requireActiveUser
 }

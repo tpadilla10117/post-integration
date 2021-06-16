@@ -17,6 +17,7 @@ postsRouter.use((req, res, next) => {
             const allPosts = await getAllPosts();
 
             const posts = allPosts.filter(post => {
+                
                 return post.active || (req.user && post.author.id === req.user.id);
             })
 
