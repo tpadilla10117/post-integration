@@ -68,7 +68,7 @@ postsRouter.use((req, res, next) => {
     });
 
 // ROUTE TO UPDATE POSTS:
-    postsRouter.patch('/:postId', requireUser, async (req, res, next) => {
+    postsRouter.patch('/:postId', requireUser, requireActiveUser, async (req, res, next) => {
         const { postId } = req.params;
         const { title, content, tags } = req.body;
         const updateFields = {};
@@ -108,7 +108,7 @@ postsRouter.use((req, res, next) => {
     })
 
 //ROUTE TO DELETE POSTS:
-    postsRouter.delete('/:postId', requireUser, async (req, res, next) => {
+    postsRouter.delete('/:postId', requireUser, requireActiveUser, async (req, res, next) => {
         try {
             const post = await getPostById(req.params.postId);
 
