@@ -4,7 +4,7 @@
     const bodyParser = require('body-parser');
     const morgan = require('morgan');
 
-    const {PORT = 3000} = process.env;
+    const {PORT = 3000, INTEGRATION_KEY} = process.env;
     const express = require('express');
     const server = express();
 

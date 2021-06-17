@@ -25,3 +25,7 @@
         - curl http://localhost:3000/api -H 'Authorization: Bearer xyz'
         - curl http://localhost:3000/api -H 'Authorization: The Bears xyz'
         - curl http://localhost:3000/api/posts
+
+## Heroku Deploy:
+- 
+    
