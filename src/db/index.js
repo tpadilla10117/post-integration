@@ -1,8 +1,7 @@
 // Imports:
-
+    require('dotenv').config();
     const bcrypt = require('bcrypt');
     const SALT_COUNT = 10;
-    require('dotenv').config()
 
     // 1) We have to connect our Client to the database (postgreSQL)
     const { Client } = require('pg');
