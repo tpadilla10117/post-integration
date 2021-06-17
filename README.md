@@ -1,11 +1,13 @@
 # Project Description:
 
-A full stack web-application / Tumblr clone that implements a custom back-end (postgreSQL and a custom API).
+A full stack web-application / Tumblr clone in progress that implements a fully functional custom back-end (postgreSQL and a custom API).
 
 Users Will (Can):
 - Create & Update posts
 - Create tags and attach them to posts
 - View posts created by fellow users
+
+### Access Backend Deploy:
 
 ### Tech Stack:
 - Database: PostgreSQL
@@ -21,6 +23,7 @@ Users Will (Can):
 ### `npm i morgan` -> for logging middleware
 ### `npm i express` -> for web-server
 ### `npm i dotenv` -> for .env
+### `npm i axios` -> HTTP Client for node.js (for frontend requests)
 
 In the post-integation/post-integration directory, you can run:
 
