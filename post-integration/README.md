@@ -27,5 +27,14 @@
         - curl http://localhost:3000/api/posts
 
 ## Heroku Deploy:
-- 
+- In terminal : `heroku login`
+- For Deploys: 
+- git config --global user.name `Your Name`
+- git config --global user.email `your_email@real_email.edu`
+- git config --global credential.helper cache --timeout=3600
+- `heroku create`
+- To check whether a remote named heroku has been set for your app: `git remote -v`
+- `git remote origin heroku`
+- `git push heroku master`
+
     
