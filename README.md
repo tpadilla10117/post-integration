@@ -26,6 +26,7 @@ Users Will (Can):
 ### `npm i dotenv` -> for .env
 ### `npm i axios` -> HTTP Client for node.js (for frontend requests)
 ### `npm i bcrypt` -> pw hashing
+### `npm i nodemon`
 
 In the post-integation/post-integration directory, you can run:
 
@@ -41,18 +42,30 @@ You will also see any lint errors in the console.
 
 ## Directory:
 
-├── api
-│   ├── index.js
-│   ├── posts.js
-│   ├── tags.js
-│   └── users.js
-├── db
-│   ├── index.js
-│   └── seed.js
-├── index.js
-├── package-lock.json
-└── package.json
-
+  ├── node_modules  
+  ├── public
+  ├── src
+  │   ├── api
+  │   │   ├── index.js
+  │   │   ├── posts.js
+  │   │   ├── tags.js
+  │   │   ├── users.js
+  │   │   ├── utils.js
+  │   │   └── xutils.js
+  │   ├── db
+  │   │   ├── index.js
+  │   │   └── seed.js
+  │   ├── frontend
+  │   │   ├── feature
+  │   │   ├── App.js
+  │   │   └── index.js
+  ├── env
+  ├── .gitignore
+  ├── index.js
+  ├── Notes.md
+  ├── package-lock.json
+  ├── package.json
+  └── README.md
 
 ## Available Scripts
 
@@ -69,3 +82,7 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+______________________________________________________________________________
+
+Developer: Trinidad Padilla: https://github.com/tpadilla10117
