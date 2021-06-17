@@ -4,17 +4,30 @@
     const bodyParser = require('body-parser');
     const morgan = require('morgan');
 
-    const {PORT = 3000, INTEGRATION_KEY} = process.env;
+    /* const {PORT = 3000, INTEGRATION_KEY} = process.env; */
     const express = require('express');
     const server = express();
 
 //THIS IS WHERE I CONNECT THE CLIENT (database):
     const { client } = require('./src/db');
-    client.connect();
+    /* client.connect(); */
 
-    server.listen(PORT, () => {
+   /*  server.listen(PORT, () => {
         console.log('The web-server us up on port', PORT)
-      });
+      }); */
+
+      // connect to the server
+        const PORT = process.env.PORT || 3000;
+        server.listen(PORT, async () => {
+        console.log(`Server is running on ${ PORT }!`);
+
+        try {
+            await client.connect();
+            console.log('Database is open for business!');
+        } catch (error) {
+            console.error("Database is closed for repairs!\n", error);
+        }
+        });
 
 /* MAY NEED TO ADD THIS SCRIPT: */
 /* "start": "node index.js", */
