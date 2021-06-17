@@ -36,5 +36,6 @@
 - To check whether a remote named heroku has been set for your app: `git remote -v`
 - `git remote origin heroku`
 - `git push heroku master`
+- Configure your API KEY -> `heroku config:set WEATHER_KEY="YOUR KEY HERE"`
 
     
