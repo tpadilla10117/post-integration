@@ -44,3 +44,5 @@
 - To check if your db has been provisioned: `heroku addons`
 - To provision a postgresql db with CLI command: `heroku addons:create heroku-postgresql:<PLAN_NAME>`
 - To check the logs of the heroku app: `heroku logs --tail`
+
+- To authenticate user -> `psql --host=ec2-54-225-228-142.compute-1.amazonaws.com --port=5432 --username=jqxxvdahzcxrkm --password --dbname=dcmf2ik878d53q`
