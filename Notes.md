@@ -1,6 +1,6 @@
 ### Notes:
 - iat = Issued At -> refers to when a token was issued
-
+- Original Frontend script: "start": "react-scripts start"
 
 ## jsonwebtoken:
 - Eg. const token = jwt.sign({ id: 3, username: 'joshua' }, 'server secret', { expiresIn: '1h' }); // allows you to forve users to reauthenticate
