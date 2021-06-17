@@ -7,7 +7,6 @@
     const { Client } = require('pg');
 
     // 2) Supply the db name * location of the db
-
     const DB_NAME = 'localhost:5432/postintegration-dev';
     const DB_URL = process.env.DATABASE_URL || `postgres://${ DB_NAME }`;
     const client = new Client(DB_URL);

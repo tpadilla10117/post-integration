@@ -38,4 +38,9 @@
 - `git push heroku master`
 - Configure your API KEY -> `heroku config:set WEATHER_KEY="YOUR KEY HERE"`
 
-    
+## Heroku Troubleshooting:
+
+- To Locate your db on heroku: `heroku pg:info`
+- To check if your db has been provisioned: `heroku addons`
+- To provision a postgresql db with CLI command: `heroku addons:create heroku-postgresql:<PLAN_NAME>`
+- To check the logs of the heroku app: `heroku logs --tail`
