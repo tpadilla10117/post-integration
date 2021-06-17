@@ -2,9 +2,10 @@
     const express = require('express');
     const usersRouter = express.Router();
     const { requireUser } = require('./utils');
-    const { getAllUsers, getUserByUsername, createUser, getUserById, updateUser } = require('../db');
+    const { getAllUsers, getUserByUsername, createUser, getUserById, updateUser, getUser } = require('../db');
     const jwt = require('jsonwebtoken');
     const { JWT_SECRET } = process.env;
+    const bcrypt = require('bcrypt');
 
     usersRouter.use((req, res, next) => {
         console.log("A request is being made to /users");
@@ -43,14 +44,16 @@
     
         try {
         const user = await getUserByUsername(username);
+
+        const isMatch = await bcrypt.compare(password, user.password);
     
-        if (user && user.password == password) {
+        if (isMatch === true) {
             // create token & return to user
             let token = jwt.sign({id: user.id, username}, process.env.JWT_SECRET);
             /* const recoveredData = jwt.verify(token, process.env.JWT_SECRET);
             recoveredData; */
             res.send({ message: "Login Success!", token: token});
-        } else {
+        } else if (isMatch === false) {
             next({ 
             name: 'IncorrectCredentialsError', 
             message: 'Username or password is incorrect'
@@ -86,9 +89,9 @@
             const token = jwt.sign({
                 id: user.id,
                 username
-            }, process.env.JWT_SECRET, {
+            }, process.env.JWT_SECRET,/*  {
                 expiresIn: '1w'
-            });
+            } */);
 
             res.send({
                 message: "Thank you for Signing Up!", token

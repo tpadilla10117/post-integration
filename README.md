@@ -24,6 +24,7 @@ Users Will (Can):
 ### `npm i express` -> for web-server
 ### `npm i dotenv` -> for .env
 ### `npm i axios` -> HTTP Client for node.js (for frontend requests)
+### `npm i bcrypt` -> pw hashing
 
 In the post-integation/post-integration directory, you can run:
 

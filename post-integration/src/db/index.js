@@ -1,9 +1,15 @@
-// 1) We have to connect our Client to the database (postgreSQL)
+// Imports:
+
+    const bcrypt = require('bcrypt');
+    const SALT_COUNT = 10;
+
+    // 1) We have to connect our Client to the database (postgreSQL)
     const { Client } = require('pg');
 
-// 2) Supply the db name * location of the db
+    // 2) Supply the db name * location of the db
 
     const client = new Client('postgres://localhost:5432/postintegration-dev');
+
 
 /* ----------------------------------------------------------------------------- */
 //THESE ARE THE POST METHODS:
@@ -285,13 +291,14 @@
 
     //THIS FUNCTION CREATES USERS (notice how we interpolate values)
         async function createUser({ username, password, name, location }) {
+            const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
             try {
                 const {rows: [ user ]} = await client.query(`
                     INSERT INTO users(username, password, name, location)
                     VALUES ($1, $2, $3, $4)
                     ON CONFLICT (username) DO NOTHING
                     RETURNING *;
-                `, [username, password, name, location]);
+                `, [username, hashedPassword, name, location]);
 
                 return user;
             } catch (error) {
@@ -308,6 +315,28 @@
                 `, [username]);
 
                 return user;
+            } catch (error) {
+                throw error;
+            }
+        }
+
+    //THIS FUNCTION LETS US GET USERS BY THEIR USERNAME AND PASSWORD:
+        async function getUser( {username, password} ) {
+            try {
+                const {rows: [user]} = await client.query(`
+                    SELECT * FROM users
+                    WHERE username=$1;
+                `, [username]);
+
+                const isMatch = await bcrypt.compare(password, user.password);
+                if (isMatch) {
+                    console.log('matching password');
+                    delete user.password;
+                    return user;
+                } else if (!isMatch) {
+                    console.log('The password does not match');
+                }
+
             } catch (error) {
                 throw error;
             }
@@ -386,5 +415,6 @@
         getPostById,
         getAllTags,
         getPostsByTagName,
-        getUserByUsername
+        getUserByUsername,
+        getUser
     }
