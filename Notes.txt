@@ -45,4 +45,17 @@
 - To provision a postgresql db with CLI command: `heroku addons:create heroku-postgresql:<PLAN_NAME>`
 - To check the logs of the heroku app: `heroku logs --tail`
 
+
+- May need to configure SSL: 
+
+The issue here: Heroku requires an SSL connection, but we are not enforcing it in our code. We can do one of 2 things. The right way is to code it in the project as explained in the heroku documentation on postgresql. In our code, we can set the connection string as follows, only setting a ssl entry if we are in production (in the heroku deployment)
+
+// db/index.js
+
+const client = new Client({
+  connectionString: process.env.DATABASE_URL || 'postgres://localhost:5432/juicebox-dev',
+  ssl: process
+
+OR you can enter this in your terminal : `heroku config:set PGSSLMODE=no-verify`
+
 - To authenticate user -> `psql --host=ec2-54-225-228-142.compute-1.amazonaws.com --port=5432 --username=jqxxvdahzcxrkm --password --dbname=dcmf2ik878d53q`
