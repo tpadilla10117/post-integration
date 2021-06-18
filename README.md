@@ -10,8 +10,8 @@ Users Will (Can):
 ### Access Backend Deploy: https://murmuring-garden-99126.herokuapp.com/api/users
 
 ## Endpoints:
-https://murmuring-garden-99126.herokuapp.com/api/users
-https://murmuring-garden-99126.herokuapp.com/api/posts
+- https://murmuring-garden-99126.herokuapp.com/api/users
+- https://murmuring-garden-99126.herokuapp.com/api/posts
 
 ### Tech Stack:
 - Database: PostgreSQL
