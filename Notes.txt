@@ -43,6 +43,7 @@
 - To Locate your db on heroku: `heroku pg:info`
 - To check if your db has been provisioned: `heroku addons`
 - To provision a postgresql db with CLI command: `heroku addons:create heroku-postgresql:<PLAN_NAME>`
+- To configure a buildpack: `heroku buildpacks:set heroku/nodejs`
 - To check the logs of the heroku app: `heroku logs --tail`
 
 
