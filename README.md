@@ -7,7 +7,11 @@ Users Will (Can):
 - Create tags and attach them to posts
 - View posts created by fellow users
 
-### Access Backend Deploy:
+### Access Backend Deploy: https://murmuring-garden-99126.herokuapp.com/api/users
+
+## Endpoints:
+https://murmuring-garden-99126.herokuapp.com/api/users
+https://murmuring-garden-99126.herokuapp.com/api/posts
 
 ### Tech Stack:
 - Database: PostgreSQL
@@ -16,9 +20,9 @@ Users Will (Can):
 - Authentication: jsonwebtoken, jwt-express
 - Package Managers: npm
 
-## Getting Started:
+## Getting Started Locally:
 
-## Local Installations:
+Local Installations:
 
 ### `npm i jsonwebtoken` -> for jsonwebtoken
 ### `npm i morgan` -> for logging middleware
@@ -30,9 +34,10 @@ Users Will (Can):
 
 In the post-integation/post-integration directory, you can run:
 
-### `npm start`
-### `npm run seed:dev` - Starts up the psql database
-### `npm run start:dev` - Starts up the Express Web-Server (API)
+### `npm start` - Starts up the express web-server
+### `npm run seed:dev` - Starts up the dev psql database
+### `npm run start:dev` - Starts up the dev Express Web-Server (API)
+### `db:build` - Seeds the database
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
