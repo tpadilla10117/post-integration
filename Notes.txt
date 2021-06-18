@@ -46,6 +46,8 @@
 - To configure a buildpack: `heroku buildpacks:set heroku/nodejs`
 - To check the logs of the heroku app: `heroku logs --tail`
 
+- To Launch scripts: E.G. `heroku run npm run db:build`
+
 
 - May need to configure SSL: 
 
