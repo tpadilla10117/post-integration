@@ -37,13 +37,10 @@ In the post-integation/post-integration directory, you can run:
 ### `npm start` - Starts up the express web-server
 ### `npm run seed:dev` - Starts up the dev psql database
 ### `npm run start:dev` - Starts up the dev Express Web-Server (API)
-### `db:build` - Seeds the database
-
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### `db:build` - Seeds the database
 
 ## Directory:
 
