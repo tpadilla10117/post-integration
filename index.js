@@ -10,12 +10,7 @@
 
 //THIS IS WHERE I CONNECT THE CLIENT (database):
     const { client } = require('./src/db');
-    /* client.connect(); */
-
-   /*  server.listen(PORT, () => {
-        console.log('The web-server us up on port', PORT)
-      }); */
-
+  
       // connect to the server
         const PORT = process.env.PORT || 3000;
         server.listen(PORT, async () => {
