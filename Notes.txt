@@ -33,6 +33,7 @@
 - git config --global user.email `your_email@real_email.edu`
 - git config --global credential.helper cache --timeout=3600
 - `heroku create`
+- Add a heroku remote repository: `heroku git:remote -a app-name`
 - To check whether a remote named heroku has been set for your app: `git remote -v`
 - `git remote origin heroku`
 - `git push heroku master`
