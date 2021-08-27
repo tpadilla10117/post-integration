@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 
 function Posts (props) {
 
-    const { postData, postDataRetrieval } = props;
+    const { postData/* , postDataRetrieval */ } = props;
 
     /* useEffect( () => {
         postDataRetrieval();
@@ -11,12 +11,20 @@ function Posts (props) {
     return (
         <div>
 
-            {/* <p>YO</p> */}
-            <ul>
+            
+           {/*  <ul>
                 {postData.posts && postData.posts.map( items => (
-                    <li >{items.title}</li>
+                    <li key={items.id} >{items.content}</li>
                 ))}
-            </ul>
+            </ul> */}
+
+            {postData.posts && postData.posts.map( items => (
+                    <div key={items.id} >
+                        <h1>{items.title}</h1>
+                        <h3>{items.author.username}</h3>
+                        <p>{items.content}</p>
+                    </div>
+                ))}
 
         </div>
     );

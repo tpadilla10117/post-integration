@@ -12,12 +12,13 @@ function App() {
   const [ postData, setPostData ] = useState([]);
 
 //This function grabs all posts from the API and sets on state:
-  /* async function postDataRetrieval () {
+  async function postDataRetrieval () {
     try {
       const response = await axios.get(`${BASE_URL}/posts`);
-      const data = response;
+      const {data} = response;
       console.log("Here is my returned data:", data);
-      return data;
+      setPostData(data);
+      /* return data; */
       
 
     } catch (error) {
@@ -25,15 +26,17 @@ function App() {
       console.error(error);
     }
 
-  }; */
+  };
 
-  async function postDataRetrieval() {
+  //A Fetch method:
+
+/*   async function postDataRetrieval() {
     const response = await fetch(`${BASE_URL}/posts`);
     const data = await response.json();
     console.log("Here is my data:", data);
     setPostData(data);
-  }
-/* postDataRetrieval(); */
+  } */
+
 
 
   useEffect( () => {
@@ -46,7 +49,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Hello World</h1>
+      
 
       <Button postData={postData} setPostData={setPostData} postDataRetrieval={postDataRetrieval}/>
       <Posts postData={postData} postDataRetrieval={postDataRetrieval}/>
