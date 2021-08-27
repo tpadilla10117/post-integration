@@ -8,6 +8,15 @@
     const express = require('express');
     const server = express();
 
+    /* Import cors library: */
+    const cors = require("cors");
+
+    server.use(
+        cors(/* {
+            origin: "http://localhost:3001",
+        } */)
+    )
+
 //THIS IS WHERE I CONNECT THE CLIENT (database):
     const { client } = require('./src/db');
   

@@ -31,6 +31,7 @@ Local Installations:
 ### `npm i axios` -> HTTP Client for node.js (for frontend requests)
 ### `npm i bcrypt` -> pw hashing
 ### `npm i nodemon`
+### `npm i cors`
 
 In the post-integation/post-integration directory, you can run:
 

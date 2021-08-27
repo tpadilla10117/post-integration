@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-import { Posts } from "./utils";
+import { Posts, Button } from "./utils";
 import axios from 'axios';
 
 const BASE_URL = "http://localhost:3000/api";
+/* https://murmuring-garden-99126.herokuapp.com/api/posts */
 
 
 function App() {
@@ -11,7 +12,7 @@ function App() {
   const [ postData, setPostData ] = useState([]);
 
 //This function grabs all posts from the API and sets on state:
-  async function postDataRetrieval () {
+  /* async function postDataRetrieval () {
     try {
       const response = await axios.get(`${BASE_URL}/posts`);
       const data = response;
@@ -24,15 +25,30 @@ function App() {
       console.error(error);
     }
 
-  };
-postDataRetrieval();
+  }; */
+
+  async function postDataRetrieval() {
+    const response = await fetch(`${BASE_URL}/posts`);
+    const data = await response.json();
+    console.log("Here is my data:", data);
+    setPostData(data);
+  }
+/* postDataRetrieval(); */
+
+
+  useEffect( () => {
+    /* postDataRetrieval(); */
+    console.log("Fireing from App:", postData )
+
+  }, [postData])
 
 
   return (
     <div className="App">
       <h1>Hello World</h1>
 
-      <Posts postData={postData}/>
+      <Button postData={postData} setPostData={setPostData} postDataRetrieval={postDataRetrieval}/>
+      <Posts postData={postData} postDataRetrieval={postDataRetrieval}/>
 
       
     </div>
