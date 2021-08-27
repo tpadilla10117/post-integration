@@ -12,11 +12,11 @@ function Posts (props) {
         <div>
 
             {/* <p>YO</p> */}
-            {/* <ul>
-                {postData && postData.map( items => (
-                    <li>{items}</li>
+            <ul>
+                {postData.posts && postData.posts.map( items => (
+                    <li >{items.title}</li>
                 ))}
-            </ul> */}
+            </ul>
 
         </div>
     );

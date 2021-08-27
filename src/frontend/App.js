@@ -39,6 +39,7 @@ function App() {
   useEffect( () => {
     /* postDataRetrieval(); */
     console.log("Fireing from App:", postData )
+    console.log("type of data:", typeof postData);
 
   }, [postData])
 
