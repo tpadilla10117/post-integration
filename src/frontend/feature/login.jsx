@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import callApi from "../../utils.js"
+import callApi from "../../api/xutils";
 
 const BASE ="http://localhost:3000/api";
 
@@ -9,6 +9,8 @@ const LoginHandle = (props) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const {token, setToken, user, setUser} = props;
+
+/* Handler that runs on submit of the returned form: */
 
     const handleLogin = async (event) => {
       try {
@@ -31,7 +33,7 @@ const LoginHandle = (props) => {
       } catch (error) {
           console.log(error);
       }
-        }
+    };
 
     useEffect(() => {
         if(token) {

@@ -3,3 +3,7 @@
     export { default as Posts } from './components/posts.js';
 
     export { default as Button } from './components/button.js';
+
+    export { default as Navbar } from './components/navbar.js';
+
+    export { default as LoginHandle } from './feature/login.jsx';

@@ -22,3 +22,5 @@ const BASE ="http://localhost:3000/api";
             console.error(error)
         }
     }
+
+    export default callApi;

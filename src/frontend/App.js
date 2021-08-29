@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Posts, Button } from "./utils";
+import { Posts, Button, Navbar, LoginHandle } from "./utils";
 import axios from 'axios';
 
 const BASE_URL = "http://localhost:3000/api";
@@ -10,6 +10,8 @@ const BASE_URL = "http://localhost:3000/api";
 function App() {
 
   const [ postData, setPostData ] = useState([]);
+  const [ token, setToken ] = useState('');
+  const [ user, setUser ] = useState( {} );
 
 //This function grabs all posts from the API and sets on state:
   async function postDataRetrieval () {
@@ -50,7 +52,8 @@ function App() {
   return (
     <div className="App">
       
-
+      <Navbar />
+      <LoginHandle token={token} setToken={setToken} user={user} setUser={setUser} />
       <Button postData={postData} setPostData={setPostData} postDataRetrieval={postDataRetrieval}/>
       <Posts postData={postData} postDataRetrieval={postDataRetrieval}/>
 
