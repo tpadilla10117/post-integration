@@ -29,12 +29,19 @@ const LoginHandle = (props) => {
             localStorage.setItem('token', data.token);
             setToken(data.token);
         }
-        /* const user = await callApi({token: data.token, url: '/users'}); */
-       /*  if(user && user.username) {
-            swal(`Welcome ${user.username}!`, "You Have Succesfully Logged In!", "success");
-        } */
+        
+        const user = await callApi({token: data.token, url: '/users'});
+        if(user && user.username) {
+            /* swal(`Welcome ${user.username}!`, "You Have Succesfully Logged In!", "success"); */
+            alert('Logged in!')
+        }
+
         console.log(data.token);
+    //Consolelog below gives me the success message and token on the object:
+        console.log("Here is the data:", data);
         console.log(username);
+        console.log("Here is the user:", user);
+        console.log("here is the username:", user.username);
       } catch (error) {
           console.log(error);
       }
