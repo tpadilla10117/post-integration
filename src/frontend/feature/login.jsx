@@ -36,6 +36,8 @@ const LoginHandle = (props) => {
             alert('Logged in!')
         }
 
+        
+
         console.log(data.token);
     //Consolelog below gives me the success message and token on the object:
         console.log("Here is the data:", data);
