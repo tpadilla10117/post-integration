@@ -11,7 +11,7 @@ const LoginHandle = (props) => {
     const {token, setToken, user, setUser} = props;
 
 /* Handler that runs on submit of the returned form: */
-
+/* Test: username: trin, pw: t7711 */
     const handleLogin = async (event) => {
       try {
 
@@ -24,12 +24,17 @@ const LoginHandle = (props) => {
            
         setUsername('');
         setPassword('');
-        localStorage.setItem('token', data.token);
-        setToken(data.token);
-        const user = await callApi({token: data.token, url: '/users'});
+
+        if(data.token) {
+            localStorage.setItem('token', data.token);
+            setToken(data.token);
+        }
+        /* const user = await callApi({token: data.token, url: '/users'}); */
        /*  if(user && user.username) {
             swal(`Welcome ${user.username}!`, "You Have Succesfully Logged In!", "success");
         } */
+        console.log(data.token);
+        console.log(username);
       } catch (error) {
           console.log(error);
       }
@@ -46,7 +51,7 @@ const LoginHandle = (props) => {
             <h3>Login</h3>
                 <input name="username" placeholder="UserName" type="text" value={username} onChange={(event) => {setUsername(event.target.value)}} /><small id="textHelp" className="form-text text-muted">Enter Your UserName</small>
 
-                <input name="password" placeholder="Password" minLength="8" type="password" value={password} onChange={(event) => {setPassword(event.target.value)}} /><small id="textHelp" className="form-text text-muted">Enter Your Password</small>
+                <input name="password" placeholder="Password" /* minLength="8"  */type="password" value={password} onChange={(event) => {setPassword(event.target.value)}} /><small id="textHelp" className="form-text text-muted">Enter Your Password</small>
                 <button type="submit">Login</button>
         </form>
     </>

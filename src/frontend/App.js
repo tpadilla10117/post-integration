@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Posts, Button, Navbar, LoginHandle } from "./utils";
+import { Posts, Button, Navbar, LoginHandle, Logout } from "./utils";
 import axios from 'axios';
 
 const BASE_URL = "http://localhost:3000/api";
@@ -52,8 +52,11 @@ function App() {
   return (
     <div className="App">
       
-      <Navbar />
+     {/*  <Navbar /> */}
       <LoginHandle token={token} setToken={setToken} user={user} setUser={setUser} />
+      <Logout token={token} setToken={setToken} user={user} setUser={setUser}/>
+
+
       <Button postData={postData} setPostData={setPostData} postDataRetrieval={postDataRetrieval}/>
       <Posts postData={postData} postDataRetrieval={postDataRetrieval}/>
 

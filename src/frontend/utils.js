@@ -7,3 +7,5 @@
     export { default as Navbar } from './components/navbar.js';
 
     export { default as LoginHandle } from './feature/login.jsx';
+
+    export { default as Logout } from './feature/logout.jsx';
