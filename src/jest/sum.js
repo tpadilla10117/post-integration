@@ -5,3 +5,8 @@
     };
 
     module.exports= sum;
+
+    //expect returns an "expectation" object
+    //toBe uses Object.is to test exact equality.
+
+    //toEqual checks the value of an object
