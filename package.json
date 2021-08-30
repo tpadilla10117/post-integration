@@ -23,7 +23,7 @@
     "start": "node index.js",
     "start:react": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest --coverage",
     "eject": "react-scripts eject",
     "seed:dev": "nodemon ./src/db/seed.js",
     "start:dev": "nodemon index.js",
@@ -48,6 +48,7 @@
     ]
   },
   "devDependencies": {
+    "jest": "^27.1.0",
     "nodemon": "^2.0.7"
   }
 }
