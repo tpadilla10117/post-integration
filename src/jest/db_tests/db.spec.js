@@ -8,7 +8,7 @@ describe('Database', () => {
 /* connect, then rebuild the database... */
 
     beforeAll( async () => {
-        /* await client.connect(); */
+        await client.connect();
         await rebuildDB();
     })
 
@@ -33,9 +33,9 @@ describe('Database', () => {
                     ]
                 });
             })
-            it('user object contains: user: [ {id, username, name, location, active} ]', async () => {
+            it('user object contains: users: [ {id, username, name, location, active} ]', async () => {
                 expect(testUser).toEqual(expect.objectContaining({
-                    user : [
+                    users : [
                         {
                             id: expect.any(Number),
                             username: expect.any(String),
@@ -51,7 +51,7 @@ describe('Database', () => {
         })
     })
 
-})
+});
 
 
 
