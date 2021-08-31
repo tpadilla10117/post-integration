@@ -198,7 +198,7 @@ const { client, getAllUsers, createUser, updateUser, getUserById, createPost, up
 //THIS FUNCTION INVOLKES THE HELPER FUNCTIONS AND REBUILDS THE DB
     async function rebuildDB() {
         try {
-            await client.connect();
+            client.connect();
 
             await dropTables();
             await createTables();

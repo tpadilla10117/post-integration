@@ -58,3 +58,6 @@
 /* THIS IS WHERE I BRING IN THE apiRouter */
 const apiRouter = require('./src/api');
 server.use('/api', apiRouter);
+
+module.exports = {
+    server};
