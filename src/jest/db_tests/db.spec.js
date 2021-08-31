@@ -1,5 +1,5 @@
 
-const { rebuildDB } = require('../../db/seed');
+const { rebuildDB, dropTables, createTables,createInitialUsers,createInitialPosts } = require('../../db/seed');
 
 const { client, getAllUsers, createPost } = require('../../db/index');
 
@@ -8,8 +8,12 @@ describe('Database', () => {
 /* connect, then rebuild the database... */
 
     beforeAll( async () => {
-        await client.connect();
-        await rebuildDB();
+        /* await client.connect(); */
+        /* await rebuildDB(); */
+        /* await dropTables();
+            await createTables();
+            await createInitialUsers();
+            await createInitialPosts(); */
     })
 
 /* After the tests run, clean up... */
@@ -21,8 +25,8 @@ describe('Database', () => {
         let testUser, testUser2;
         describe('getAllUsers', () => {
             beforeAll(async() => {
-                testUser = await getAllUsers({ 
-                    users: [ 
+                testUser = await getAllUsers( 
+                    [ 
                         {
                         id: 1,
                         username: 'Henryfluff',
@@ -31,11 +35,11 @@ describe('Database', () => {
                         active: true,
                         }
                     ]
-                });
+                );
             })
             it('user object contains: users: [ {id, username, name, location, active} ]', async () => {
-                expect(testUser).toEqual(expect.objectContaining({
-                    users : [
+                expect(testUser).toEqual(expect.arrayContaining(
+                    [
                         {
                             id: expect.any(Number),
                             username: expect.any(String),
@@ -45,7 +49,7 @@ describe('Database', () => {
                         }
                     ]
                 
-                }))
+                ))
             })
 
         })

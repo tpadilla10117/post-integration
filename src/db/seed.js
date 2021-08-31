@@ -198,7 +198,7 @@ const { client, getAllUsers, createUser, updateUser, getUserById, createPost, up
 //THIS FUNCTION INVOLKES THE HELPER FUNCTIONS AND REBUILDS THE DB
     async function rebuildDB() {
         try {
-            client.connect();
+            await client.connect();
 
             await dropTables();
             await createTables();
@@ -217,4 +217,8 @@ rebuildDB()
 
 module.exports = {
     rebuildDB,
+    dropTables,
+    createTables,
+    createInitialUsers,
+    createInitialPosts,
 }
