@@ -30,7 +30,8 @@
     "eject": "react-scripts eject",
     "seed:dev": "nodemon ./src/db/seed.js",
     "start:dev": "nodemon index.js",
-    "db:build": "node ./src/db/seed.js"
+    "db:build": "node ./src/db/seed.js",
+    "start:dbserver": "node ./src/jest/db_tests/index.js"
   },
   "eslintConfig": {
     "extends": [
