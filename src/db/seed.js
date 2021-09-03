@@ -72,7 +72,7 @@ const { client, getAllUsers, createUser, updateUser, getUserById, createPost, up
             console.log("Starting to create users...");
             
             await createUser( { 
-                username: 'trin', password: 't7711', name: 'trin P', location: 'cordelia'});
+                username: 'trin', password: 't7711', name: 'trin P', location: 'cordelia', id:1});
             await createUser( { 
                 username: "sandra", password: 'glamgal', name: 'Sandy', location: 'Scranton'})
             await createUser( {
@@ -198,13 +198,14 @@ const { client, getAllUsers, createUser, updateUser, getUserById, createPost, up
 //THIS FUNCTION INVOLKES THE HELPER FUNCTIONS AND REBUILDS THE DB
     async function rebuildDB() {
         try {
-            client.connect();
+            //If testing, comment out client:
+            /* client.connect(); */
 
             await dropTables();
             await createTables();
             await createInitialUsers();
             await createInitialPosts();
-            /* await createInitialTags(); */
+            await createInitialTags();
 
         } catch (error) {
             console.error("Error during rebuildDB");
@@ -221,4 +222,5 @@ module.exports = {
     createTables,
     createInitialUsers,
     createInitialPosts,
+    testDB,
 }

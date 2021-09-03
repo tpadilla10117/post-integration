@@ -1,5 +1,5 @@
 
-const { rebuildDB, dropTables, createTables,createInitialUsers,createInitialPosts } = require('../../db/seed');
+const { rebuildDB, dropTables, createTables,createInitialUsers,createInitialPosts, testDB } = require('../../db/seed');
 
 /* const express = require('express');
 const server = express();
@@ -9,7 +9,7 @@ server.listen(8080, () => console.log("Listening on port 8080"))
 
 
 
-const { client, getAllUsers, createPost } = require('../../db/index');
+const { client, getAllUsers, createPost, getUserByUsername, getAllPosts } = require('../../db/index');
 /* const { client} = require('./index'); */
 
 
@@ -18,12 +18,12 @@ describe('Database', () => {
 /* connect, then rebuild the database... */
 
    beforeAll( async () => { 
-        /* await client.connect(); */
+        await client.connect();
         /* await rebuildDB(); */
-        /* await dropTables();
-            await createTables();
+        await dropTables();
+            /* await createTables(); */
             await createInitialUsers();
-            await createInitialPosts(); */
+            await createInitialPosts();
      })
 
 /* After the tests run, clean up... */
@@ -48,7 +48,7 @@ describe('Database', () => {
                 );
             })
             it('user object contains: users: [ {id, username, name, location, active} ]', async () => {
-                expect(testUser).toEqual(expect.arrayContaining(
+                expect(testUser).toEqual(expect.objectContaining(
                     [
                         {
                             id: expect.any(Number),
@@ -64,6 +64,45 @@ describe('Database', () => {
 
         })
     })
+    /* describe('posts', () => {
+        let testAllPosts;
+        describe('getAllPosts', () => {
+            beforeAll(async() => {
+                testAllPosts = await getAllPosts( 
+                    [ 
+                        {
+                        id: 1,
+                        title: 'Henryfluff',
+                        content: 'Henry',
+                        active: true,
+                        tags: [ {} ],
+                        author: {
+                            id: 1,
+                            username: 'Henry',
+                            name: 'somename',
+                            location: 'some location'
+                        }
+                        }
+                    ]
+                );
+            })
+            it('posts object contains: posts: [ {id, title, content, active, tags, author} ]', async () => {
+                expect(testAllPosts).toEqual(expect.objectContaining(
+                    [
+                        {
+                            id: expect.any(Number),
+                            title: expect.any(String),
+                            content: expect.any(String),
+                            active: expect.any(Boolean),
+                            
+                        }
+                    ]
+                
+                ))
+            })
+
+        })
+    }) */
 
 });
 
