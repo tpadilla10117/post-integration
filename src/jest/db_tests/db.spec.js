@@ -1,22 +1,7 @@
 
 const { rebuildDB, dropTables, createTables,createInitialUsers,createInitialPosts } = require('../../db/seed');
 
-const { client, getAllUsers, createPost, getAllTags,getUserByUsername, getAllPosts } = require('../../db/index');
-
-
-/* async function getUserByUsername(username) {
-    try {
-        const { rows: [user] } = await client.query(`
-            SELECT * FROM users
-            WHERE username=$1;
-        `, [username]);
-
-        return user;
-    } catch (error) {
-        throw error;
-    }
-} */
-
+const { client, getAllUsers, createUser, createPost, getAllTags,getUserByUsername, getAllPosts } = require('../../db/index');
 
 describe('Database', () => {
 /* Before anything, run this code then the tests... */
@@ -62,7 +47,11 @@ describe('Database', () => {
     describe('getAllTags', () => {
         it('Selects and returns an array of tags', async () => {
             expect(await getAllTags()).toEqual(tagsInDatabase);
-        })
+        });
+
+        it('Returns an object', async () => {
+            expect(typeof tagsInDatabase).toBe('object');
+        });
     })
 
     /* describe("getUserByUsername", () => {
@@ -90,6 +79,11 @@ describe('Database', () => {
                     ]
                 );
             })
+
+            it('Returns an object', async () => {
+                expect(typeof testUser).toBe('object');
+            });
+
             it('user object contains: users: [ {id, username, name, location, active} ]', async () => {
                 expect(testUser).toEqual(expect.objectContaining(
                     [
@@ -103,8 +97,60 @@ describe('Database', () => {
                     ]
                 
                 ))
+            });
+
+        });
+
+        let testCreateUser;
+        
+        describe('createUser', () => {
+            beforeAll(async() => {
+                
+            //Data mocked to pass into the function call:
+                testCreateUser = await createUser(
+                    
+                        {
+                            username: "Boo",
+                            password: 'xoxoxohj!',
+                            name: 'Guy',
+                            location: "Fairland"
+                        }
+                    
+                )
+                
             })
 
+
+            it('Returns an object', async () => {
+                expect(typeof testCreateUser).toBe('object');
+            });
+
+            it('Inserts some user data & create a user in the db', async () => {
+                expect(testCreateUser).toEqual(expect.objectContaining(
+                    
+                        {
+                            username: expect.any(String),
+                            password: expect.any(String),
+                            name: expect.any(String),
+                            location: expect.any(String),
+                        }
+                    
+                ))
+            });
+            it('Inserts the user into the db', async () => {
+                const insertedUser = testCreateUser;
+                console.log('insertedUser:', insertedUser);
+
+                //Also will query the db
+                const { rows: [queriedUser]} = await client.query(`
+                    SELECT * FROM users
+                    WHERE username=$1
+                `, [testCreateUser.username]);
+                
+                expect(insertedUser).toEqual(queriedUser);
+
+
+            });
         })
 
        /*  describe('getUserByUsername', () => {
