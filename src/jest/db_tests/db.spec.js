@@ -1,38 +1,53 @@
 
-const { rebuildDB, dropTables, createTables,createInitialUsers,createInitialPosts, testDB } = require('../../db/seed');
+const { rebuildDB, dropTables, createTables,createInitialUsers,createInitialPosts } = require('../../db/seed');
 
-/* const express = require('express');
-const server = express();
-
-server.listen(8080, () => console.log("Listening on port 8080"))
- */
-
-
-
-const { client, getAllUsers, createPost, getUserByUsername, getAllPosts } = require('../../db/index');
-/* const { client} = require('./index'); */
+const { client, getAllUsers, createPost, getAllTags,getUserByUsername, getAllPosts } = require('../../db/index');
 
 
 describe('Database', () => {
 /* Before anything, run this code then the tests... */
 /* connect, then rebuild the database... */
 
+    /* let usersInDatabase; */
+    let tagsInDatabase;
    beforeAll( async () => { 
-        await client.connect();
-        /* await rebuildDB(); */
-        await dropTables();
-            /* await createTables(); */
+       
+         client.connect();
+        
+            await dropTables();
+            await createTables();
             await createInitialUsers();
             await createInitialPosts();
-     })
+        
+        /* const { rows } = await client.query(`SELECT id, username, name, location, active
+        FROM users`)
+        usersInDatabase = rows; */
+
+        const { rows } = await client.query(`
+                    SELECT * FROM tags;
+                `);
+                tagsInDatabase = { rows };
+
+        
+
+
+     });
 
 /* After the tests run, clean up... */
     afterAll( async() => {
-        await client.end();
+        client.end();
+    });
+
+    describe('getAllTags', () => {
+        it('Selects and returns an array of tags', async () => {
+            expect(await getAllTags()).toEqual(tagsInDatabase);
+        })
     })
+
+
   
     describe('users', () => {
-        let testUser, testUser2;
+        let testUser;
         describe('getAllUsers', () => {
             beforeAll(async() => {
                 testUser = await getAllUsers( 

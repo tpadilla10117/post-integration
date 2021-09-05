@@ -199,13 +199,13 @@ const { client, getAllUsers, createUser, updateUser, getUserById, createPost, up
     async function rebuildDB() {
         try {
             //If testing, comment out client:
-            /* client.connect(); */
+            client.connect();
 
             await dropTables();
             await createTables();
-            await createInitialUsers();
+            /* await createInitialUsers();
             await createInitialPosts();
-            await createInitialTags();
+            await createInitialTags(); */
 
         } catch (error) {
             console.error("Error during rebuildDB");
@@ -213,8 +213,12 @@ const { client, getAllUsers, createUser, updateUser, getUserById, createPost, up
         } 
     }
 
-rebuildDB()
-.then(testDB).catch(console.error).finally( () => client.end() );
+
+/* rebuildDB()
+.then(createInitialUsers)
+.then(createInitialPosts)
+.then(createInitialTags)
+.then(testDB).catch(console.error).finally( () => client.end() ); */
 
 module.exports = {
     rebuildDB,
