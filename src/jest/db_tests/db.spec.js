@@ -4,12 +4,27 @@ const { rebuildDB, dropTables, createTables,createInitialUsers,createInitialPost
 const { client, getAllUsers, createPost, getAllTags,getUserByUsername, getAllPosts } = require('../../db/index');
 
 
+/* async function getUserByUsername(username) {
+    try {
+        const { rows: [user] } = await client.query(`
+            SELECT * FROM users
+            WHERE username=$1;
+        `, [username]);
+
+        return user;
+    } catch (error) {
+        throw error;
+    }
+} */
+
+
 describe('Database', () => {
 /* Before anything, run this code then the tests... */
 /* connect, then rebuild the database... */
 
     /* let usersInDatabase; */
     let tagsInDatabase;
+    let usernameInDatabase;
    beforeAll( async () => { 
        
          client.connect();
@@ -28,8 +43,14 @@ describe('Database', () => {
                 `);
                 tagsInDatabase = { rows };
 
-        
+       /*  const { rows: [user] } = await client.query(`
+            SELECT * FROM users
+            WHERE username=$1;
+        `, [username]);
 
+        usernameInDatabase = {rows: [user] }; */
+
+    
 
      });
 
@@ -44,10 +65,17 @@ describe('Database', () => {
         })
     })
 
+    /* describe("getUserByUsername", () => {
+        it("Selects and returns a user by username", async () => {
+            expect(await getUserByUsername(username)).toEqual(usernameInDatabase);
+        })
+    }) */
+
 
   
     describe('users', () => {
         let testUser;
+        
         describe('getAllUsers', () => {
             beforeAll(async() => {
                 testUser = await getAllUsers( 
@@ -78,6 +106,12 @@ describe('Database', () => {
             })
 
         })
+
+       /*  describe('getUserByUsername', () => {
+            let testUsername;
+            beforeAll
+
+        }) */
     })
     /* describe('posts', () => {
         let testAllPosts;
