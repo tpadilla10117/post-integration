@@ -68,7 +68,7 @@ describe('Database', () => {
         describe('getAllUsers', () => {
             beforeAll(async() => {
                 testUser = await getAllUsers( 
-                    [ 
+                    /* [ 
                         {
                         id: 1,
                         username: 'Henryfluff',
@@ -76,7 +76,7 @@ describe('Database', () => {
                         location: 'Asgard',
                         active: true,
                         }
-                    ]
+                    ] */
                 );
             })
 
@@ -159,26 +159,26 @@ describe('Database', () => {
 
         }) */
     })
-    /* describe('posts', () => {
+    describe('posts', () => {
         let testAllPosts;
         describe('getAllPosts', () => {
             beforeAll(async() => {
                 testAllPosts = await getAllPosts( 
-                    [ 
-                        {
+                     
+                       /*  {
                         id: 1,
                         title: 'Henryfluff',
                         content: 'Henry',
                         active: true,
-                        tags: [ {} ],
+                        tags: [ '#cool' ],
                         author: {
                             id: 1,
                             username: 'Henry',
                             name: 'somename',
                             location: 'some location'
                         }
-                        }
-                    ]
+                        } */
+                    
                 );
             })
             it('posts object contains: posts: [ {id, title, content, active, tags, author} ]', async () => {
@@ -189,6 +189,19 @@ describe('Database', () => {
                             title: expect.any(String),
                             content: expect.any(String),
                             active: expect.any(Boolean),
+                            tags: expect.arrayContaining([
+                                    expect.objectContaining({
+                                        id: expect.any(Number),
+                                        name: expect.any(String)
+                                    })
+                                ]),
+                            author: expect.objectContaining({
+                                id: expect.any(Number),
+                                username: expect.any(String),
+                                name: expect.any(String),
+                                location: expect.any(String)
+                            }
+                            )
                             
                         }
                     ]
@@ -197,7 +210,7 @@ describe('Database', () => {
             })
 
         })
-    }) */
+    })
 
 });
 
