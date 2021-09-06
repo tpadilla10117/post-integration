@@ -1,5 +1,5 @@
 
-const { rebuildDB, dropTables, createTables,createInitialUsers,createInitialPosts } = require('../../db/seed');
+const { dropTables, createTables,createInitialUsers,createInitialPosts } = require('../../db/seed');
 
 const { client, getAllUsers, createUser, createPost, getAllTags,getUserByUsername, getAllPosts } = require('../../db/index');
 
@@ -7,9 +7,8 @@ describe('Database', () => {
 /* Before anything, run this code then the tests... */
 /* connect, then rebuild the database... */
 
-    /* let usersInDatabase; */
     let tagsInDatabase;
-    let usernameInDatabase;
+    
    beforeAll( async () => { 
        
          client.connect();
@@ -18,23 +17,11 @@ describe('Database', () => {
             await createTables();
             await createInitialUsers();
             await createInitialPosts();
-        
-        /* const { rows } = await client.query(`SELECT id, username, name, location, active
-        FROM users`)
-        usersInDatabase = rows; */
 
         const { rows } = await client.query(`
                     SELECT * FROM tags;
                 `);
                 tagsInDatabase = { rows };
-
-       /*  const { rows: [user] } = await client.query(`
-            SELECT * FROM users
-            WHERE username=$1;
-        `, [username]);
-
-        usernameInDatabase = {rows: [user] }; */
-
     
 
      });
@@ -52,15 +39,7 @@ describe('Database', () => {
         it('Returns an object', async () => {
             expect(typeof tagsInDatabase).toBe('object');
         });
-    })
-
-    /* describe("getUserByUsername", () => {
-        it("Selects and returns a user by username", async () => {
-            expect(await getUserByUsername(username)).toEqual(usernameInDatabase);
-        })
-    }) */
-
-
+    });
   
     describe('users', () => {
         let testUser;
@@ -153,12 +132,41 @@ describe('Database', () => {
             });
         })
 
-       /*  describe('getUserByUsername', () => {
-            let testUsername;
-            beforeAll
+        let testGetUserByUsername;
+        let username = "trin";
+        describe('getUserByUsername', () => {
+            beforeAll(async() => {
+                
+            //Data mocked to pass into the function call:
+                testGetUserByUsername = await getUserByUsername(username);
+                console.log("Here is trin's user info:", testGetUserByUsername)
+            });
 
-        }) */
-    })
+            it('Returns an object', async () => {
+                expect(typeof testGetUserByUsername).toBe('object');
+            });
+
+            it("Returns an Object with the passed in user's info", async() => {
+                expect(testGetUserByUsername).toEqual(expect.objectContaining(
+                    {
+                        id: testGetUserByUsername.id,
+                        active: testGetUserByUsername.active,
+                        location: testGetUserByUsername.location,
+                        name: testGetUserByUsername.name,
+                        username: testGetUserByUsername.username,
+                        password: testGetUserByUsername.password,
+
+                    }
+                ))
+            })
+
+            
+
+        });
+
+        
+    });
+
     describe('posts', () => {
         let testAllPosts;
         describe('getAllPosts', () => {
@@ -180,7 +188,12 @@ describe('Database', () => {
                         } */
                     
                 );
-            })
+            });
+            
+            it('Returns an object', async () => {
+                expect(typeof testAllPosts).toBe('object');
+            });
+
             it('posts object contains: posts: [ {id, title, content, active, tags, author} ]', async () => {
                 expect(testAllPosts).toEqual(expect.objectContaining(
                     [
@@ -207,7 +220,7 @@ describe('Database', () => {
                     ]
                 
                 ))
-            })
+            });
 
         })
     })
