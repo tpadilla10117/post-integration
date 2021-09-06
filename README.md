@@ -32,7 +32,7 @@ Local Installations:
 ### `npm i bcrypt` -> pw hashing
 ### `npm i nodemon`
 ### `npm i cors`
-### `npm i --save-dev jest` -> add jest testing library to dev dependency for unit tests
+### `npm i --save-dev jest` -> add jest (JS) testing library to dev dependency for unit tests
 
 In the post-integation/post-integration directory, you can run:
 

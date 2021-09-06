@@ -1,6 +1,6 @@
 // The seed.js file is where we seed the database with meaningful info
 
-const { client, getAllUsers, createUser, updateUser, getUserById, createPost, updatePost, getAllPosts, getPostsByUser, createTags, addTagsToPost, getPostById, getAllTags, getPostsByTagName } = require('./index');
+const { client, getAllUsers, createUser, updateUser, getUserById, createPost, updatePost, getAllPosts, getPostsByUser, createTags, addTagsToPost, getPostById, getAllTags, getPostsByTagName, createPostTag } = require('./index');
 
 /* Testing the db connection */
 
@@ -51,6 +51,12 @@ const { client, getAllUsers, createUser, updateUser, getUserById, createPost, up
             console.log("Calling getAllTags");
             const tags = await getAllTags();
             console.log("Result of getAllTags:", tags);
+
+           /*  console.log("Calling createPostTag");
+            const testTagId = 4;
+            const testPostId = 2;
+            const postTags = await createPostTag(testPostId, testTagId);
+            console.log("Result of createPostTag:", postTags); */
 
             console.log("Calling getPostsByTagName with #redfish");
             const postsWithHappy = await getPostsByTagName("#redfish");
@@ -214,11 +220,11 @@ const { client, getAllUsers, createUser, updateUser, getUserById, createPost, up
     }
 
 
-/* rebuildDB()
+rebuildDB()
 .then(createInitialUsers)
 .then(createInitialPosts)
 .then(createInitialTags)
-.then(testDB).catch(console.error).finally( () => client.end() ); */
+.then(testDB).catch(console.error).finally( () => client.end() );
 
 module.exports = {
     rebuildDB,

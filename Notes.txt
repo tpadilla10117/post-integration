@@ -26,6 +26,12 @@
         - curl http://localhost:3000/api -H 'Authorization: The Bears xyz'
         - curl http://localhost:3000/api/posts
 
+##Jest Notes:
+- Runs tests and acts as assertion library to test code
+- Can also use as a mocking library
+- Works with typescript
+- * May still need Enzyme or React Testing Library to work with Component testing
+
 ## Heroku Deploy:
 - In terminal : `heroku login`
 - For Deploys: 

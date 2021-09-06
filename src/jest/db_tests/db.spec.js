@@ -1,7 +1,7 @@
 
 const { dropTables, createTables,createInitialUsers,createInitialPosts } = require('../../db/seed');
 
-const { client, getAllUsers, createUser, createPost, getAllTags,getUserByUsername, getAllPosts } = require('../../db/index');
+const { client, getAllUsers, createUser, createPost, getAllTags, createPostTag, getUserByUsername, getAllPosts } = require('../../db/index');
 
 describe('Database', () => {
 /* Before anything, run this code then the tests... */
@@ -30,16 +30,37 @@ describe('Database', () => {
     afterAll( async() => {
         client.end();
     });
-
-    describe('getAllTags', () => {
-        it('Selects and returns an array of tags', async () => {
-            expect(await getAllTags()).toEqual(tagsInDatabase);
+    describe('tags', () => {
+        describe('getAllTags', () => {
+            it('Selects and returns an array of tags', async () => {
+                expect(await getAllTags()).toEqual(tagsInDatabase);
+            });
+    
+            it('Returns an object', async () => {
+                expect(typeof tagsInDatabase).toBe('object');
+            });
         });
 
-        it('Returns an object', async () => {
-            expect(typeof tagsInDatabase).toBe('object');
-        });
-    });
+        let testCreatePostTag;
+        describe('createPostTag', () => {
+            beforeAll(async() => {
+                testCreatePostTag = await createPostTag(
+                    {
+                        "postId": 1,
+                        "tagId": 1
+                    }
+                )
+            })
+
+            it("Returns an object", async() => {
+                expect(typeof testCreatePostTag).toBe('object');
+            });
+        })
+
+
+
+    })
+    
   
     describe('users', () => {
         let testUser;
@@ -222,8 +243,29 @@ describe('Database', () => {
                 ))
             });
 
-        })
-    })
+        });
+
+        
+           /*  describe('createPost', () => {
+                let testCreatePosts;
+                beforeAll(async() => {
+                    testCreatePosts = await createPost({
+
+                        authorId: 3,
+                        title: "This is a test",
+                        content: "Some testing info",
+                        tags: []
+
+                    })
+                })
+
+                it("Returns nobject", async() => {
+                    expect(typeof testCreatePosts).toBe('object');
+                });
+            }) */
+
+    });
+
 
 });
 
