@@ -31,6 +31,8 @@ const LoginHandle = (props) => {
         }
         
         const user = await callApi({token: data.token, url: '/users'});
+
+        //Doesnt fire
         if(user && user.username) {
             /* swal(`Welcome ${user.username}!`, "You Have Succesfully Logged In!", "success"); */
             alert('Logged in!')
@@ -41,9 +43,11 @@ const LoginHandle = (props) => {
         console.log(data.token);
     //Consolelog below gives me the success message and token on the object:
         console.log("Here is the data:", data);
-        console.log(username);
+        console.log("My logged in user's name:", username);
+
+        //Brings back te array of users....
         console.log("Here is the user:", user);
-        console.log("here is the username:", user.username);
+        
       } catch (error) {
           console.log(error);
       }

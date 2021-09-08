@@ -9,3 +9,5 @@
     export { default as LoginHandle } from './feature/login.jsx';
 
     export { default as Logout } from './feature/logout.jsx';
+
+    export { default as CreateAPost } from './feature/postform.jsx';

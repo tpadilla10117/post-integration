@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Posts, Button, Navbar, LoginHandle, Logout } from "./utils";
+import { Posts, Button, Navbar, LoginHandle, Logout, CreateAPost } from "./utils";
 import axios from 'axios';
 
 const BASE_URL = "http://localhost:3000/api";
@@ -58,6 +58,9 @@ function App() {
 
 
       <Button postData={postData} setPostData={setPostData} postDataRetrieval={postDataRetrieval}/>
+
+      <CreateAPost />
+      
       <Posts postData={postData} postDataRetrieval={postDataRetrieval}/>
 
       
