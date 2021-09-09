@@ -28,16 +28,18 @@ const LoginHandle = (props) => {
     /* Set token in localStorage to Persist login: */
         if(data.token) {
             localStorage.setItem('token', data.token);
-            setToken(data.token);
+            setToken(data.token); //not getting set in state
+            console.log("Here is token prior to setting:", token)
         }
         
     //This is necessary, but im getting back the entire users object.  I only need the logged in user:
-       const user = await callApi({token: data.token, url: '/users'});
+    
+       /* const user = await callApi({token: data.token, url: '/users'});
        console.log("From call API:", user)
-
+ */
   
         if(username && data.recoveredData.username) {
-            alert('Logged in!')
+           /*  alert('Logged in!') */
             setUser(`${data.recoveredData.username}`)
             console.log("Set the logged in users name:", username);
         }
@@ -48,6 +50,7 @@ const LoginHandle = (props) => {
         console.log("Here is the data:", data);
         console.log("My logged in user's data object:", data.recoveredData);
         console.log("My logged in user's info:", data.recoveredData.username )
+        console.log("Do I have a user?:", user)
 
         
        
