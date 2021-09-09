@@ -30,7 +30,7 @@ const LoginHandle = (props) => {
             setToken(data.token);
         }
         
-        const user = await callApi({token: data.token, url: '/users'});
+       /*  const user = await callApi({token: data.token, url: '/users'}); */
 
         //Doesnt fire
         if(user && user.username) {
@@ -40,12 +40,12 @@ const LoginHandle = (props) => {
 
         
 
-        console.log(data.token);
+        console.log("The user's token:",data.token);
     //Consolelog below gives me the success message and token on the object:
         console.log("Here is the data:", data);
         console.log("My logged in user's name:", username);
 
-        //Brings back te array of users....
+        
         console.log("Here is the user:", user);
         
       } catch (error) {
