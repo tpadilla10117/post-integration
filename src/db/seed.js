@@ -14,8 +14,8 @@ const { client, getAllUsers, createUser, updateUser, getUserById, createPost, up
 
             console.log("Calling updateUser on users[0]")
              const updateUserResult = await updateUser(users[0].id, {
-                name: "Newname Sogood",
-                location: "Lesterville, KY"
+                name: "YeetMon",
+                location: "Fairfield"
             });
             console.log("Result of updateUserResult:", updateUserResult);
 

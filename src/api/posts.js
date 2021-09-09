@@ -33,7 +33,7 @@ postsRouter.use((req, res, next) => {
     });
 
 // ROUTE TO CREATE POSTS:
-    postsRouter.post("/", requireUser,requireActiveUser, async (req, res, next) => {
+   /* export const createAPost =  */postsRouter.post("/", /* requireUser,requireActiveUser, */ async (req, res, next) => {
         const { title, content, tags = "" } = req.body;
 
         //Spaces removed, then string into an Array

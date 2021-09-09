@@ -12,6 +12,7 @@ function App() {
   const [ postData, setPostData ] = useState([]);
   const [ token, setToken ] = useState('');
   const [ user, setUser ] = useState( {} );
+  const [username, setUsername] = useState('');
 
 //This function grabs all posts from the API and sets on state:
   async function postDataRetrieval () {
@@ -53,13 +54,13 @@ function App() {
     <div className="App">
       
      {/*  <Navbar /> */}
-      <LoginHandle token={token} setToken={setToken} user={user} setUser={setUser} />
-      <Logout token={token} setToken={setToken} user={user} setUser={setUser}/>
+      <LoginHandle token={token} setToken={setToken} user={user} setUser={setUser} username={username} setUsername={setUsername}/>
+      <Logout token={token} setToken={setToken} user={user} setUser={setUser} username={username} setUsername={setUsername}/>
 
 
       <Button postData={postData} setPostData={setPostData} postDataRetrieval={postDataRetrieval}/>
 
-      <CreateAPost />
+      <CreateAPost postData={postData} postDataRetrieval={postDataRetrieval} username={username}/>
       
       <Posts postData={postData} postDataRetrieval={postDataRetrieval}/>
 

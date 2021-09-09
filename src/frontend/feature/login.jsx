@@ -6,9 +6,9 @@ const BASE ="http://localhost:3000/api";
 
 const LoginHandle = (props) => {
 
-    const [username, setUsername] = useState('');
+    
     const [password, setPassword] = useState('');
-    const {token, setToken, user, setUser} = props;
+    const {token, setToken, user, setUser, username, setUsername} = props;
 
 /* Handler that runs on submit of the returned form: */
 /* Test: username: trin, pw: t7711 */
@@ -25,6 +25,7 @@ const LoginHandle = (props) => {
         setUsername('');
         setPassword('');
 
+    /* Set token in localStorage to Persist login: */
         if(data.token) {
             localStorage.setItem('token', data.token);
             setToken(data.token);
@@ -32,21 +33,22 @@ const LoginHandle = (props) => {
         
        /*  const user = await callApi({token: data.token, url: '/users'}); */
 
-        //Doesnt fire
-        if(user && user.username) {
-            /* swal(`Welcome ${user.username}!`, "You Have Succesfully Logged In!", "success"); */
+  
+        if(username && data.recoveredData.username) {
             alert('Logged in!')
+            setUser(`${data.recoveredData.username}`)
+            console.log("Set the logged in users name:", username);
         }
 
         
-
-        console.log("The user's token:",data.token);
     //Consolelog below gives me the success message and token on the object:
+        /* console.log("The user's token:",data.token); */
         console.log("Here is the data:", data);
-        console.log("My logged in user's name:", username);
+        console.log("My logged in user's data object:", data.recoveredData);
+        console.log("My logged in user's info:", data.recoveredData.username )
 
         
-        console.log("Here is the user:", user);
+       
         
       } catch (error) {
           console.log(error);

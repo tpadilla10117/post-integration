@@ -50,9 +50,9 @@
         if (isMatch === true) {
             // create token & return to user
             let token = jwt.sign({id: user.id, username}, process.env.JWT_SECRET);
-            /* const recoveredData = jwt.verify(token, process.env.JWT_SECRET);
-            recoveredData; */
-            res.send({ message: "Login Success!", token: token});
+            const recoveredData = jwt.verify(token, process.env.JWT_SECRET);
+            /* recoveredData; */
+            res.send({ message: "Login Success!", recoveredData, token: token/* , user: user */});
         } else if (isMatch === false) {
             next({ 
             name: 'IncorrectCredentialsError', 
