@@ -33,7 +33,7 @@ postsRouter.use((req, res, next) => {
     });
 
 // ROUTE TO CREATE POSTS:
-   /* export const createAPost =  */postsRouter.post("/", /* requireUser,requireActiveUser, */ async (req, res, next) => {
+   /* export const createAPost =  */postsRouter.post("/", requireUser,requireActiveUser, async (req, res, next) => {
         const { title, content, tags = "" } = req.body;
 
         //Spaces removed, then string into an Array
@@ -45,18 +45,18 @@ postsRouter.use((req, res, next) => {
         if (tagArr.length) {
             postData.tags = tagArr;
         }
-
+        
         try {
             postData.title = title;
             postData.content = content;
-            postData.authorId = req.user.id;
-
+            postData.authorId = req.user.id;  //may not work because no user id
+            
             // this will create the post and the tags for us
             const post = await createPost(postData);
             if (post) {
             res.send({ post });
             } else {
-            next();
+                next();
             }
 
         } catch ({ name, message }) {

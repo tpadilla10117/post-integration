@@ -12,11 +12,17 @@ const CreateAPost = (props) => {
     const [ content, setContent ] = useState('');
     const [ tags, setTags ] = useState('');
 
+/* This handles the form submission to create a post: */
     const createPostHandler = async (event) => {
         event.preventDefault();
         
-        const response = await axios.post(`${BASE}/posts`,username, 
+        //This is likely where my error is occuring:
+        const response = await axios.post(`${BASE}/posts`, 
             {title, content, tags});
+
+        //Im actually getting back the values I expect
+            /* console.log(content) */
+
         const {data} = response;
 
         console.log("We created a post:", data)
