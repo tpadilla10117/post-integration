@@ -31,7 +31,7 @@ const LoginHandle = (props) => {
 
     /* Set token in localStorage to Persist login: */
         if(data.token) {
-            storeCurrentToken(data.token)
+            storeCurrentToken(data.token); //sets token in storage
             setToken(data.token); //not getting set in state
             console.log("Here is token prior to setting:", token)
         
@@ -40,8 +40,8 @@ const LoginHandle = (props) => {
     //This is necessary, but im getting back the entire users object.  I only need the logged in user:
     
        /* const user = await callApi({token: data.token, url: '/users'});
-       console.log("From call API:", user)
- */
+       console.log("From call API:", user) */
+
   
         if(username && data.recoveredData.username) {
            /*  alert('Logged in!') */
@@ -58,6 +58,7 @@ const LoginHandle = (props) => {
         console.log("Do I have a user?:", user)
         console.log("Here is a token from data object:", data.token) //returns token as a string
         console.log("Here is a token:", token) //not getting saved in state
+        console.log("This should be the logged in user:", username);
 
       
        
@@ -70,9 +71,9 @@ const LoginHandle = (props) => {
 //Doesn't fire -  no token saved in state, and also need to decide if want to change based on dependency
     useEffect(() => {
         if(token) {
-        setUser(user);
+        setUsername(username);
         }
-    }, []);
+    }, [token]);
 
     return <>
         <form onSubmit={handleLogin}>

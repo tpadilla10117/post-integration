@@ -1,6 +1,6 @@
 // The seed.js file is where we seed the database with meaningful info
 
-const { client, getAllUsers, getUser, createUser, updateUser, getUserById, createPost, updatePost, getAllPosts, getPostsByUser, createTags, addTagsToPost, getPostById, getAllTags, getPostsByTagName, createPostTag } = require('./index');
+const { client, getAllUsers, getUser, getUserByUsername, createUser, updateUser, getUserById, createPost, updatePost, getAllPosts, getPostsByUser, createTags, addTagsToPost, getPostById, getAllTags, getPostsByTagName, createPostTag } = require('./index');
 
 /* Testing the db connection */
 
@@ -18,6 +18,10 @@ const { client, getAllUsers, getUser, createUser, updateUser, getUserById, creat
             console.log("Calling getAllUsers");
             const users = await getAllUsers();
             console.log("The result of invoking getAllUsers:", users);
+
+            console.log("Calling getUserByUsername");
+            const username = await getUserByUsername("trin");
+            console.log("The result of calling getUserByUsername:", username);
 
             console.log("Calling updateUser on users[0]")
              const updateUserResult = await updateUser(users[0].id, {

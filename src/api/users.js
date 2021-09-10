@@ -65,6 +65,15 @@
         }
     });
 
+//Route once a user has been logged in:
+    usersRouter.get('/me', requireUser, async (req, res, next) => {
+        try {
+            res.send(req.user);
+        } catch({name, message}) {
+            next({name, message});
+        }
+    });
+
 //Register Route:
     usersRouter.post('/register', async (req, res, next) => {
         const { username, password, name, location } = req.body;
