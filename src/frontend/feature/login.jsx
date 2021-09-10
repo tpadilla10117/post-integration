@@ -37,10 +37,10 @@ const LoginHandle = (props) => {
         
         }
         
-    //This is necessary, but im getting back the entire users object.  I only need the logged in user:
+    //This returns the single, logged-in user:
     
-       /* const user = await callApi({token: data.token, url: '/users'});
-       console.log("From call API:", user) */
+       const user = await callApi({token: data.token, url: `/users/me`});
+       console.log("From call API:", user)
 
   
         if(username && data.recoveredData.username) {

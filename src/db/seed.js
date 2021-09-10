@@ -47,6 +47,16 @@ const { client, getAllUsers, getUser, getUserByUsername, createUser, updateUser,
             });
             console.log("Result of updating posttags:", updatePostTagsResult);
 
+            console.log("Calling createPost!");
+            const newPost = await createPost({
+                authorId: 1,
+                title: "This is a new post",
+                content: "Just made a new post!",
+                tags: ["#sweet"],
+
+            });
+            console.log("The result of calling createPost in the db:", newPost);
+
             console.log("Calling getPostById");
             const post = await getPostById(1);
             console.log("Result of get getPostById:", post);
