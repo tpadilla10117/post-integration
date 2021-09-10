@@ -6,13 +6,18 @@ import axios from 'axios';
 const BASE_URL = "http://localhost:3000/api";
 /* https://murmuring-garden-99126.herokuapp.com/api/posts */
 
+function getCurrentToken() {
+  const token = JSON.parse(localStorage.getItem('token'));
+  return token;
+};
+
 
 function App() {
 
-  const [ postData, setPostData ] = useState([]);
-  const [ token, setToken ] = useState('');
-  const [ user, setUser ] = useState( {} );
-  const [username, setUsername] = useState('');
+  const [ postData, setPostData ] = useState([]); //Data fetched for posts
+  const [ token, setToken ] = useState(getCurrentToken()); //A user's jwt Token
+  const [ user, setUser ] = useState( {} ); //Entire user object
+  const [username, setUsername] = useState(''); //A Specific user
 
 //This function grabs all posts from the API and sets on state:
   async function postDataRetrieval () {
