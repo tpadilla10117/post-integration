@@ -37,10 +37,13 @@ const LoginHandle = (props) => {
         
         }
         
-    //This returns the single, logged-in user:
+    //This returns the single, logged-in user object:
     
        const user = await callApi({token: data.token, url: `/users/me`});
-       console.log("From call API:", user)
+       const {callApiData} = user;
+
+       console.log("From call API:", callApiData)
+       /* setUsername(callApiData); */
 
   
         if(username && data.recoveredData.username) {
@@ -59,6 +62,7 @@ const LoginHandle = (props) => {
         console.log("Here is a token from data object:", data.token) //returns token as a string
         console.log("Here is a token:", token) //not getting saved in state
         console.log("This should be the logged in user:", username);
+        console.log("Data from the username object:", username.id);
 
       
        
@@ -69,12 +73,12 @@ const LoginHandle = (props) => {
     };
 
 //Doesn't fire -  no token saved in state, and also need to decide if want to change based on dependency
-    useEffect(() => {
+   /*  useEffect(() => {
         if(token) {
         setUsername(username);
         }
     }, [token]);
-
+ */
     return <>
         <form onSubmit={handleLogin}>
             <h3>Login</h3>
