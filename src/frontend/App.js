@@ -17,7 +17,8 @@ function App() {
   const [ postData, setPostData ] = useState([]); //Data fetched for posts
   const [ token, setToken ] = useState(getCurrentToken()); //A user's jwt Token
   const [ user, setUser ] = useState( {} ); //Entire user object
-  const [username, setUsername] = useState(''); //A Specific user
+  const [username, setUsername] = useState(''); //A Specific user's username for form inputs
+  const [ currentUser, setCurrentUser ] = useState(''); // A specific user's username to be saved in state upon login
 
 //This function grabs all posts from the API and sets on state:
   async function postDataRetrieval () {
@@ -59,13 +60,13 @@ function App() {
     <div className="App">
       
      {/*  <Navbar /> */}
-      <LoginHandle token={token} setToken={setToken} user={user} setUser={setUser} username={username} setUsername={setUsername}/>
-      <Logout token={token} setToken={setToken} user={user} setUser={setUser} username={username} setUsername={setUsername}/>
+      <LoginHandle token={token} setToken={setToken} user={user} setUser={setUser} username={username} setUsername={setUsername} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+      <Logout token={token} setToken={setToken} user={user} setUser={setUser} username={username} setUsername={setUsername} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
 
 
       <Button postData={postData} setPostData={setPostData} postDataRetrieval={postDataRetrieval}/>
 
-      <CreateAPost postData={postData} postDataRetrieval={postDataRetrieval} username={username}/>
+      <CreateAPost postData={postData} postDataRetrieval={postDataRetrieval} username={username} currentUser={currentUser}/>
       
       <Posts postData={postData} postDataRetrieval={postDataRetrieval}/>
 

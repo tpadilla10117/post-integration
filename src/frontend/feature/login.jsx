@@ -12,7 +12,7 @@ const LoginHandle = (props) => {
 
     
     const [password, setPassword] = useState('');
-    const {token, setToken, user, setUser, username, setUsername} = props;
+    const {token, setToken, user, setUser, username, setUsername, currentUser, setCurrentUser} = props;
 
 /* Handler that runs on submit of the returned form: */
 /* Test: username: trin, pw: t7711 */
@@ -43,7 +43,7 @@ const LoginHandle = (props) => {
        const {callApiData} = user;
 
        console.log("From call API:", callApiData)
-       /* setUsername(callApiData); */
+       setCurrentUser(user);
 
   
         if(username && data.recoveredData.username) {
@@ -72,13 +72,14 @@ const LoginHandle = (props) => {
       }
     };
 
-//Doesn't fire -  no token saved in state, and also need to decide if want to change based on dependency
-   /*  useEffect(() => {
-        if(token) {
-        setUsername(username);
-        }
-    }, [token]);
- */
+//Merely logs the currentUser I save in the currentUser state:
+    useEffect(() => {
+        
+        console.log("We fired the useEffect!")
+        console.log("Here is my currentUser:", currentUser)
+
+    }, [currentUser]);
+
     return <>
         <form onSubmit={handleLogin}>
             <h3>Login</h3>

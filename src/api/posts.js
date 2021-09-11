@@ -36,7 +36,7 @@ postsRouter.use((req, res, next) => {
    /* export const createAPost =  */postsRouter.post("/", requireUser,requireActiveUser, async (req, res, next) => {
         const { title, content, tags = "" } = req.body;
 
-        //Spaces removed, then string into an Array
+        //Spaces removed from fromt/back with trim(), then string into an Array with split
         //E.g. frontend send "#happy #bloated", tagArr has ["#happy", "#bloated"]
         const tagArr = tags.trim().split(/\s+/);
         const postData = {};

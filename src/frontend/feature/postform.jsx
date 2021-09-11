@@ -7,7 +7,7 @@ const BASE ="http://localhost:3000/api";
 
 const CreateAPost = (props) => {
 
-    const {username} = props;
+    const {username, currentUser} = props;
     const [ title, setTitle ] = useState("");
     const [ content, setContent ] = useState('');
     const [ tags, setTags ] = useState('');
@@ -17,16 +17,25 @@ const CreateAPost = (props) => {
         event.preventDefault();
         
         //This is likely where my error is occuring:
-        const response = await axios.post(`${BASE}/posts`, 
-            {title, content, tags});
+        const response = await axios.post(`/posts`, 
+            {authorId: currentUser.id, title: title, content: content, tags: tags});
 
         //Im actually getting back the values I expect
             /* console.log(content) */
+
+            /* const newPost = await createPost({
+                authorId: 1,
+                title: "This is a new post",
+                content: "Just made a new post!",
+                tags: ["#sweet"],
+
+            }); */
 
         const {data} = response;
 
         console.log("We created a post:", data)
     }
+
 
     return (
         <div id="postform">

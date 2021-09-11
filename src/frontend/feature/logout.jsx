@@ -3,7 +3,7 @@ import React, {useEffect} from "react";
 function Logout (props) {
 
 
-    const { user, setUser, token, setToken, username, setUsername } = props;
+    const { user, setUser, token, setToken, username, setUsername, setCurrentUser } = props;
 
 /* Function that removes token from localStorage when user log's out: */
     function clearCurrentUser() {
@@ -18,6 +18,7 @@ function Logout (props) {
       clearCurrentUser();
       setUser({});
       setUsername("");
+      setCurrentUser('');
       setToken('');
 
     }
