@@ -1,5 +1,7 @@
 // Function middleware for Errors with no User:
     function requireUser(req, res, next) {
+
+        console.log("Here is req.user from utils:",req.user)
         if(!req.user) {
             next({
                 name: "MissingUserError",

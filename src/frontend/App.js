@@ -66,9 +66,9 @@ function App() {
 
       <Button postData={postData} setPostData={setPostData} postDataRetrieval={postDataRetrieval}/>
 
-      <CreateAPost postData={postData} postDataRetrieval={postDataRetrieval} username={username} currentUser={currentUser}/>
+      <CreateAPost postData={postData} postDataRetrieval={postDataRetrieval} username={username} currentUser={currentUser} token={token}/>
       
-      <Posts postData={postData} postDataRetrieval={postDataRetrieval}/>
+      <Posts postData={postData} postDataRetrieval={postDataRetrieval} token={token}/>
 
       
     </div>

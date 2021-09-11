@@ -33,23 +33,28 @@ postsRouter.use((req, res, next) => {
     });
 
 // ROUTE TO CREATE POSTS:
-   /* export const createAPost =  */postsRouter.post("/", requireUser,requireActiveUser, async (req, res, next) => {
-        const { title, content, tags = "" } = req.body;
-
+   postsRouter.post("/", requireUser,requireActiveUser, async (req, res, next) => {
+        const user = req.user;
+        const {title, content, tags = "" } = req.body;
+       
         //Spaces removed from fromt/back with trim(), then string into an Array with split
         //E.g. frontend send "#happy #bloated", tagArr has ["#happy", "#bloated"]
         const tagArr = tags.trim().split(/\s+/);
-        const postData = {};
 
+        const postData = {title, content, tags};
+        const author = [user.id, user.username, user.name, user.location]
         //If there are tags, send them over
         if (tagArr.length) {
             postData.tags = tagArr;
         }
-        
+        console.log("Here is my req.body:", req.body)
+        console.log("Here is my postData:", postData);
+        console.log("Here is my author info:", author)
         try {
-            postData.title = title;
-            postData.content = content;
-            postData.authorId = req.user.id;  //may not work because no user id
+           /*  postData.title = title;
+            postData.content = content; */
+            postData.authorId = user.id;  //may not work because no user id
+            postData.author = author
             
             // this will create the post and the tags for us
             const post = await createPost(postData);

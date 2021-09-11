@@ -2,40 +2,66 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import './postform.css'
+import callApi from "../../api/xutils";
 
 const BASE ="http://localhost:3000/api";
 
+
 const CreateAPost = (props) => {
 
-    const {username, currentUser} = props;
+    const {username, currentUser, token} = props;
     const [ title, setTitle ] = useState("");
     const [ content, setContent ] = useState('');
     const [ tags, setTags ] = useState('');
 
+    const config = {
+        headers: { 'Authorization': `Bearer ${token}`}
+    }
+
 /* This handles the form submission to create a post: */
     const createPostHandler = async (event) => {
         event.preventDefault();
+
+    //This makes a post request, but I need to do it in Axios:
+       /* const user = await callApi({token: token, url: `/posts`, method: 'post', 
+       
+        body: {
+            authorId: currentUser.id, 
+            title: title, 
+            content: content, 
+            tags: tags
+        }
+    
+        });
+       const {callApiData} = user; */
         
         //This is likely where my error is occuring:
-        const response = await axios.post(`/posts`, 
-            {authorId: currentUser.id, title: title, content: content, tags: tags});
-
-        //Im actually getting back the values I expect
-            /* console.log(content) */
-
-            /* const newPost = await createPost({
-                authorId: 1,
-                title: "This is a new post",
-                content: "Just made a new post!",
-                tags: ["#sweet"],
-
+       /*  const response = await axios.post(`${BASE}/posts`, config, 
+            
+            {
+                authorId: currentUser.id, 
+                title: title, 
+                content: content, 
+                tags: tags
             }); */
+            
+
+        const response = await axios({
+            method: 'post',
+            url: `${BASE}/posts`,
+            data: {
+                authorId: currentUser.id, 
+                title: title, 
+                content: content, 
+                tags: tags
+            },
+            headers: { 'Authorization': `Bearer ${token}`}
+        })
 
         const {data} = response;
 
         console.log("We created a post:", data)
     }
-
 
     return (
         <div id="postform">

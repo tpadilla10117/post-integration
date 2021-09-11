@@ -18,11 +18,13 @@ function Posts (props) {
                 ))}
             </ul> */}
 
+            {/* Need to render the nested tags out: */}
             {postData.posts && postData.posts.map( items => (
                     <div key={items.id} >
                         <h1>{items.title}</h1>
                         <h3>{items.author.username}</h3>
                         <p>{items.content}</p>
+                        {/* <p>{items.tags}</p> */}
                     </div>
                 ))}
             

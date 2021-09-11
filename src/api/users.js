@@ -69,6 +69,7 @@
     usersRouter.get('/me', requireUser, async (req, res, next) => {
         try {
             res.send(req.user);
+            console.log("Here is req.user:", req.user)
         } catch({name, message}) {
             next({name, message});
         }
