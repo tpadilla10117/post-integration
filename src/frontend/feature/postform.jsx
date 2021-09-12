@@ -61,7 +61,18 @@ const CreateAPost = (props) => {
         const {data} = response;
 
         console.log("We created a post:", data)
-    }
+    };
+
+
+/* This is to update posts: */
+    const updatePostHandler = async(event) => {
+        event.preventDefault();
+
+
+
+    } 
+
+
 
     return (
         <div id="postform">
@@ -75,6 +86,16 @@ const CreateAPost = (props) => {
 
                 <button type="submit">Submit Form</button>
                 
+
+            </form>
+
+            <form onSubmit={updatePostHandler} className="update_form">
+                <input type="text" placeholder="Update your title" />
+                <input type ="text" placeholder="Enter updated content"/>
+                <input type="text" placeholder="Update your tags" />
+
+                <button type="submit">UPDATE</button>
+
 
             </form>
 
