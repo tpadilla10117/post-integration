@@ -11,8 +11,11 @@ const CreateAPost = (props) => {
 
     const {username, currentUser, token} = props;
     const [ title, setTitle ] = useState("");
+    const [ updateTitle, setUpdateTitle ] = useState("");
     const [ content, setContent ] = useState('');
+    const [ updateContent, setUpdateContent] = useState('');
     const [ tags, setTags ] = useState('');
+    const [ updateTags, setUpdateTags] = useState('');
 
     const config = {
         headers: { 'Authorization': `Bearer ${token}`}
@@ -68,7 +71,18 @@ const CreateAPost = (props) => {
     const updatePostHandler = async(event) => {
         event.preventDefault();
 
+        const response = await axios ({
+            method: 'patch',
+            url: `${BASE}/posts/1`,
+            data: {
+                authorId: currentUser.id,
+                title: updateTitle,
+                content: updateContent,
+                tags: updateTags
+            },
+            headers: { 'Authorization': `Bearer ${token}`}
 
+        })
 
     } 
 
@@ -90,9 +104,9 @@ const CreateAPost = (props) => {
             </form>
 
             <form onSubmit={updatePostHandler} className="update_form">
-                <input type="text" placeholder="Update your title" />
-                <input type ="text" placeholder="Enter updated content"/>
-                <input type="text" placeholder="Update your tags" />
+                <input type="text" placeholder="Update your title" value={updateTitle} onChange={(event) => setUpdateTitle(event.target.value)} />
+                <input type ="text" placeholder="Enter updated content" value={updateContent} onChange={(event) => setUpdateContent(event.target.value)} />
+                <input type="text" placeholder="Update your tags" value={updateTags} onChange={(event) => setUpdateTags(event.target.value)}/>
 
                 <button type="submit">UPDATE</button>
 
