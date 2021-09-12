@@ -73,7 +73,7 @@ const CreateAPost = (props) => {
 
         const response = await axios ({
             method: 'patch',
-            url: `${BASE}/posts/1`,
+            url: `${BASE}/posts/3`,
             data: {
                 authorId: currentUser.id,
                 title: updateTitle,
@@ -82,7 +82,11 @@ const CreateAPost = (props) => {
             },
             headers: { 'Authorization': `Bearer ${token}`}
 
-        })
+        });
+
+        const {data} = response;
+
+        console.log("We updated a post!:", data)
 
     } 
 

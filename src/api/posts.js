@@ -97,6 +97,7 @@ postsRouter.use((req, res, next) => {
                 const updatedPost = await updatePost(postId, updateFields);
 
                 res.send( {post: updatedPost} );
+                
             } else {
                 next({
                     name:"UnauthorizedUserError",
@@ -108,7 +109,7 @@ postsRouter.use((req, res, next) => {
             next({
                 name:"Update Successful",
                 message: "Update Successful!"
-            })
+            });
         }
     })
 
