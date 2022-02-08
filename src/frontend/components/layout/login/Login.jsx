@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import callApi from "../../api/xutils";
+import callApi from "../../../../api/xutils";
 
 const BASE ="http://localhost:3000/api";
 
@@ -8,7 +8,7 @@ function storeCurrentToken(token) {
     localStorage.setItem('token', JSON.stringify(token));
   };
 
-const LoginHandle = (props) => {
+const Login = (props) => {
 
     
     const [password, setPassword] = useState('');
@@ -91,4 +91,4 @@ const LoginHandle = (props) => {
     </>
 }
 
-export default LoginHandle;
+export default Login;

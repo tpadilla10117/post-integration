@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import './postform.css'
-import callApi from "../../api/xutils";
+/* import callApi from "../../api/xutils"; */
 
 const BASE ="http://localhost:3000/api";
 
 
-const CreateAPost = (props) => {
+const PostForm = (props) => {
 
     const {username, currentUser, token} = props;
     const [ title, setTitle ] = useState("");
@@ -122,4 +122,4 @@ const CreateAPost = (props) => {
     );
 };
 
-export default CreateAPost;
+export default PostForm;
