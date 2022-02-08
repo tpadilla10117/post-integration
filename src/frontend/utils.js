@@ -1,5 +1,7 @@
 /* This components handles exports in the main App: */
 
+    export { default as Header } from './components/layout/header/Header.jsx';
+
     export { default as Posts } from './components/posts.js';
 
     export { default as Button } from './components/button.js';
@@ -21,7 +23,7 @@
 /* -------------------------------------------------------------------------- */
 /* Functions: */
 
-/* Scroll to top of the page after a user clicks a link: */
-/* export const scrollTop = () => {
-    window.scrollTo({ behavior: "smooth", top: "0px"});
-}; */
+    /* Scroll to top of the page after a user clicks a link: */
+    export const scrollTop = () => {
+        window.scrollTo({ behavior: "smooth", top: "0px"});
+    };

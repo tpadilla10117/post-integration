@@ -5,7 +5,7 @@ const Landing = () => {
   
   <main>
 
-
+    <p>Greetings from landing</p>
 
   </main>);
 };

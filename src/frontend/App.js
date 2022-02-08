@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Posts, Button, Navbar, Login, Logout, Postform } from "./utils";
+import { Posts, Button, Navbar, Login, Logout, Postform, Landing } from "./utils";
 import axios from 'axios';
 
 const BASE_URL = "http://localhost:3000/api";
@@ -60,15 +60,19 @@ function App() {
     <div className="App">
       
      {/*  <Navbar /> */}
-      <Login token={token} setToken={setToken} user={user} setUser={setUser} username={username} setUsername={setUsername} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
-      <Logout token={token} setToken={setToken} user={user} setUser={setUser} username={username} setUsername={setUsername} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+
+      <Landing />
+
+      {/* TODO: These layout components need to be on a page: */}
+        {/* <Login token={token} setToken={setToken} user={user} setUser={setUser} username={username} setUsername={setUsername} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+        <Logout token={token} setToken={setToken} user={user} setUser={setUser} username={username} setUsername={setUsername} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
 
 
-      <Button postData={postData} setPostData={setPostData} postDataRetrieval={postDataRetrieval}/>
+        <Button postData={postData} setPostData={setPostData} postDataRetrieval={postDataRetrieval}/>
 
-      <Postform postData={postData} postDataRetrieval={postDataRetrieval} username={username} currentUser={currentUser} token={token}/>
-      
-      <Posts postData={postData} postDataRetrieval={postDataRetrieval} token={token}/>
+        <Postform postData={postData} postDataRetrieval={postDataRetrieval} username={username} currentUser={currentUser} token={token}/>
+        
+        <Posts postData={postData} postDataRetrieval={postDataRetrieval} token={token}/> */}
 
       
     </div>
